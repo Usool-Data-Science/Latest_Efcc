@@ -78,6 +78,7 @@ def dashboard():
     from models.petition import Petition
     response = []
     all_petitions = Petition.query.all()
+    gender = current_user.gender
     """Get complainants names"""
     for petition in all_petitions:
         petition_dict = {}
@@ -97,7 +98,8 @@ def dashboard():
 
     return render_template("dashboard.html",
                            dashboard_result_list=response,
-                           sum_petition=len(all_petitions))
+                           sum_petition=len(all_petitions),
+                           gender=gender)
 
 
 @app_views.route('/stats', methods=['GET'], strict_slashes=False)

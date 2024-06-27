@@ -87,6 +87,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, max=60)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     age = IntegerField('Age', validators=[DataRequired(), NumberRange(min=1, message='Age must be positive')])
+    gender = SelectField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], validators=[DataRequired()])
     state_of_origin = SelectField('State', choices=[(val, val) for val in nigeria_states], validators=[DataRequired()])
     submit = SubmitField('Sign Up')
     reset = SubmitField('Clear All', render_kw={"type": "reset"})

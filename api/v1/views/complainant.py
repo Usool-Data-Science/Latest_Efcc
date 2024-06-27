@@ -14,18 +14,11 @@ def get_complainants():
     from models.complainant import Complainant
 
     form = ComplainantForm()
-    all_complainants = Complainant.query.all()
-    complainants = []
-    for complainant in all_complainants:
-        compln = complainant.to_dict()
-        if "__class__" in compln:
-            del compln["__class__"]
-        complainants.append(compln)
-    complainants.reverse()
-
+    complainant = Complainant.query.order_by(Complainant.updated_at.desc())
+    complainant_dicts = [complainant.to_dict() for complainant in complainant]
     return render_template("complainant.html",
-                           complainants=complainants[:5], title="Complainant",
-                           sum_complainants=len(complainants), form=form)
+                           complainants=complainant_dicts, title="Petition",
+                           sum_complainant=complainant.count(), form=form)
 
 @app_views.route('/complainants', methods=['POST'], strict_slashes=False)
 def post_complainants():

@@ -60,11 +60,6 @@ $table-striped-bg: #f15252;
     @include make-container();
 }
 
-body::before {
-    display: block;
-    content: "";
-}
-
 .justify {
     text-align: justify;
     line-height: 2rem;

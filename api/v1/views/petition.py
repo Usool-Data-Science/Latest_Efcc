@@ -12,20 +12,13 @@ def get_petitions():
     Retrieves the list of all Petition objects
     """
     from models.petition import Petition
-    from models.complainant import Complainant
 
     form = PetitionForm()
-    all_petitions = Petition.query.all()
-    petitions = []
-    for petition in all_petitions:
-        petn = petition.to_dict()
-        if "__class__" in petn:
-            del petn["__class__"]
-        petitions.append(petn)
-    petitions.reverse()
+    petitions = Petition.query.order_by(Petition.date_received.desc())
+    petition_dicts = [petition.to_dict() for petition in petitions]
     return render_template("petition.html",
-                           petitions=petitions[:5], title="Petition",
-                           sum_petitions=len(petitions), form=form)
+                           petitions=petition_dicts, title="Petition",
+                           sum_petitions=petitions.count(), form=form)
 
 
 @app_views.route('/petitions', methods=['POST'], strict_slashes=False)

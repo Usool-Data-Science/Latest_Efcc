@@ -2,9 +2,10 @@
 """ State Module for HBNB project """
 
 from models import db
+from models.base_model import BaseModel
 from models.variables import recovery_statuses, top_currencies
 
-class Recovery(db.Model):
+class Recovery(BaseModel, db.Model):
     """A fingerprint object that defines each suspects fingerprint"""
     
     __tablename__ = 'recoveries'
@@ -24,7 +25,7 @@ class Recovery(db.Model):
     def __str__(self):
         return f"Recovery {self.id} for Petition {self.petition_id}"
 
-class Monetary(db.Model):
+class Monetary(BaseModel, db.Model):
     """A table that contains features of monetary recoveries"""
     
     __tablename__ = 'monetaries'
@@ -42,7 +43,7 @@ class Monetary(db.Model):
     def __str__(self):
         return f"Monetary Recovery {self.id} with status {self.status}"
 
-class Bank(db.Model):
+class Bank(BaseModel, db.Model):
     """Blueprint of Bank monetary recoveries"""
     
     __tablename__ = 'bank'
@@ -59,7 +60,7 @@ class Bank(db.Model):
     def __str__(self):
         return f"Bank Recovery {self.id} from {self.bank_name}"
 
-class Crypto(db.Model):
+class Crypto(BaseModel, db.Model):
     """Blueprint of crypto recoveries"""
     
     __tablename__ = 'crypto'
@@ -75,7 +76,7 @@ class Crypto(db.Model):
     def __str__(self):
         return f"Crypto Recovery {self.id} of {self.asset_name}"
 
-class Cash(db.Model):
+class Cash(BaseModel, db.Model):
     """Blueprint for cash recovered"""
     
     __tablename__ = 'cash'
@@ -90,7 +91,7 @@ class Cash(db.Model):
     def __str__(self):
         return f"Cash Recovery {self.id} of {self.amount} {self.denomination}"
 
-class Automobile(db.Model):
+class Automobile(BaseModel, db.Model):
     """A table that contains features of automobile recoveries"""
     
     __tablename__ = 'automobile'
@@ -109,7 +110,7 @@ class Automobile(db.Model):
     def __str__(self):
         return f"Automobile Recovery {self.id} described as {self.description}"
 
-class Electronic(db.Model):
+class Electronic(BaseModel, db.Model):
     """A table that contains features of electronic recoveries"""
     
     __tablename__ = 'electronics'
@@ -128,7 +129,7 @@ class Electronic(db.Model):
     def __str__(self):
         return f"Electronic Recovery {self.id} with status {self.status}"
 
-class Phone(db.Model):
+class Phone(BaseModel, db.Model):
     """Blueprint of phone recoveries"""
     
     __tablename__ = 'phones'
@@ -144,7 +145,7 @@ class Phone(db.Model):
     def __str__(self):
         return f"Phone Recovery {self.id} named {self.phone_name}"
 
-class Laptop(db.Model):
+class Laptop(BaseModel, db.Model):
     """Blueprint for laptop recoveries"""
     
     __tablename__ = 'laptop'
@@ -160,7 +161,7 @@ class Laptop(db.Model):
     def __str__(self):
         return f"Laptop Recovery {self.id} named {self.name}"
 
-class Other(db.Model):
+class Other(BaseModel, db.Model):
     """Blueprint for other recoveries"""
     
     __tablename__ = 'other'
@@ -174,7 +175,7 @@ class Other(db.Model):
     def __str__(self):
         return f"Other Electronic Recovery {self.id} described as {self.description}"
 
-class Jewelry(db.Model):
+class Jewelry(BaseModel, db.Model):
     """A table that contains features of jewelry recoveries"""
     
     __tablename__ ='jewelry'
@@ -190,7 +191,7 @@ class Jewelry(db.Model):
     def __str__(self):
         return f"Jewelry Recovery {self.id} named {self.name}"
 
-class LandedProperty(db.Model):
+class LandedProperty(BaseModel, db.Model):
     """A table that contains features of landed properties recoveries"""
     
     __tablename__ = 'landedproperty'

@@ -2,6 +2,7 @@
 
 # Create the database models
 from models import db
+from models.base_model import BaseModel
 from models.variables import nigeria_states
 from flask_login import UserMixin
 from models.petition import Petition
@@ -11,7 +12,7 @@ association_pet_staff = db.Table("petition_staff",
     db.Column("staff_id", db.ForeignKey("staffs.id"), primary_key=True, nullable=False)
 )
 
-class Staff(db.Model, UserMixin):
+class Staff(BaseModel, db.Model, UserMixin):
     """A Staff object that defines each Efcc staff features"""
 
     __tablename__ = 'staffs'
@@ -21,7 +22,9 @@ class Staff(db.Model, UserMixin):
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
     age = db.Column(db.Integer, nullable=False)
+    gender = db.Column(db.Enum('Male', 'Female'), nullable=False)
     state = db.Column(db.Enum(*nigeria_states), nullable=False)
+    
 
     # Relationship
     petitions = db.relationship("Petition", secondary="petition_staff", viewonly=False, back_populates="staffs")

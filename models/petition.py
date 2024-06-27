@@ -5,6 +5,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from models.recovery import Recovery
 from models.suspect import Suspect
+from models.base_model import BaseModel
 
 
 association_pet_susp = db.Table("petition_suspect",
@@ -12,7 +13,7 @@ association_pet_susp = db.Table("petition_suspect",
     db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
 )
 
-class Petition(db.Model, UserMixin):
+class Petition(BaseModel, db.Model, UserMixin):
     """
         A blueprint for the petition model
     """

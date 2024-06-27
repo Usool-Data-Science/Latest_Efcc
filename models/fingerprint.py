@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 from models import db
+from models.base_model import BaseModel
 
-class FingerPrint(db.Model):
+class FingerPrint(BaseModel, db.Model):
     """
     A fingerprint object that defines each suspect's fingerprint and associated mugshot.
 

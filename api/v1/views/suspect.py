@@ -26,7 +26,7 @@ def get_suspects():
     suspects.reverse()
     
     return render_template("suspect.html",
-                           suspects=suspects[:5], title="Suspect",
+                           suspects=suspects, title="Suspect",
                            sum_suspects=len(suspects),
                            suspectForm=suspectForm, idForm=idForm,
                            fingerForm=fingerForm)

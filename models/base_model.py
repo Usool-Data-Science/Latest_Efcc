@@ -2,25 +2,19 @@
 """This module defines a base class for all models in our hbnb clone"""
 
 """Standard libraries"""
-import uuid
 from datetime import datetime
 
 """Third part libraries"""
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, DateTime, String, Integer
-# from flask_sqlachemy import SQLAlchemy
-
-Base = declarative_base()
+from models import db
 
 class BaseModel:
     """A base class for all EFCC models"""
-    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.now())
-    updated_at = Column(DateTime, nullable=False, default=datetime.now())
+    
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
-        from models import storage
-        # self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         if kwargs:
@@ -31,20 +25,6 @@ class BaseModel:
                     setattr(self, k, v)
             if '__class__' in kwargs:
                 del kwargs['__class__']
-            # self.__dict__.update(kwargs)
-
-    def __str__(self):
-        """Returns a string representation of the instance"""
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
-
-    def save(self):
-        """Updates updated_at with current time when instance is changed"""
-        # from models import storage
-        from models import storage
-        self.updated_at = datetime.now()
-        storage.new(self)
-        storage.save()
 
     def to_dict(self):
         """Convert instance into dict format"""
@@ -58,14 +38,6 @@ class BaseModel:
         except Exception:
             pass
         return s_dict
-
-    def delete(self):
-        """
-        Deletes the instance of the object from the storage
-            We Import storage directly here to avoid circular
-            import errors.
-        """
-        # from models import storage
-        from models import storage
-        storage.delete(self)
-        storage.save()
+    
+    # def to_dict(self):
+    #     return {column.name: getattr(self, column.name) for column in self.__table__.columns}

@@ -2,8 +2,9 @@
 """This module defines a class Identity"""
 from models import db
 from models.variables import id_cards
+from models.base_model import BaseModel
 
-class Identity(db.Model):
+class Identity(BaseModel, db.Model):
     """
         A blueprint for the supsect identification
     """

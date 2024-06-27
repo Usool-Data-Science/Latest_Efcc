@@ -85,7 +85,11 @@
                         <i class="fa-solid fa-search"></i>
                         <input type="text" placeholder="Search Case File No">
                     </div>
-                    <img src="../static/dashboard.jpg" alt="Users">
+                    {% if gender == "Male" %}
+                    <img src="{{ url_for('static', filename='img/body/male_silhouette2.png') }}" alt="Staff Image">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/body/female_silhouette.png') }}" alt="Staff Image">
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from models import db
 from models.variables import nigeria_states
+from models.base_model import BaseModel
 
 # Association table for petitions and complainants
 association_pet_comp = db.Table(
@@ -9,7 +10,7 @@ association_pet_comp = db.Table(
     db.Column("complainant_id", db.ForeignKey("complainants.id"), primary_key=True, nullable=False)
 )
 
-class Complainant(db.Model):
+class Complainant(BaseModel, db.Model):
     """A complainant object that defines each complainant's features"""
 
     __tablename__ = 'complainants'

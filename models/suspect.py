@@ -2,6 +2,7 @@
 """ Review module for the HBNB project """
 
 from models import db
+from models.base_model import BaseModel
 from models.complainant import Complainant
 from models.variables import nigeria_skin_colors, religion_types, offence_types
 
@@ -11,7 +12,7 @@ association_feud = db.Table("complainant_suspect",
 )
 
 
-class Suspect(db.Model):
+class Suspect(BaseModel, db.Model):
     """A suspect object that defines each suspect's features"""  
     
     __tablename__ = 'suspects'

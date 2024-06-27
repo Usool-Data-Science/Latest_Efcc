@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-import json
 from datetime import datetime
-from models import app, db
+from models import app, db, bcrypt
 from models.complainant import Complainant
 from models.suspect import Suspect
 from models.fingerprint import FingerPrint
@@ -11,6 +10,9 @@ from models.staff import Staff
 from models.recovery import (Monetary, Bank, Crypto, Cash, Recovery,
                                 Electronic, Phone, Laptop, Other,
                                 Automobile, Jewelry, LandedProperty)
+
+password = '123456'
+pasw_hs = bcrypt.generate_password_hash(password).decode('utf-8')
 
 with app.app_context():
     db.create_all()
@@ -89,8 +91,9 @@ staff1 = Staff(
     first_name="Adeshina",
     last_name="Ibrahim",
     email="adeshinaibrahim10@gmail.com",
-    password="hashed_password_1",
+    password=pasw_hs,
     age=30,
+    gender="Male",
     state="Lagos"
 )
 
@@ -100,8 +103,9 @@ staff2 = Staff(
     first_name="Oluwatobi",
     last_name="Olatunde",
     email="oluwatobiolatunde@example.com",
-    password="hashed_password_2",
+    password=pasw_hs,
     age=28,
+    gender="Female",
     state="Ogun"
 )
 db.session.add_all([staff1, staff2])
