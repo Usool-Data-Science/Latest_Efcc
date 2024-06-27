@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Information</title>
+</head>
+
+<body>
+    <h2>Identity Information Retrieval</h2>
+    <form action="/retrieve_identity_info" method="post">
+        <label for="id_type">Select ID Type:</label>
+        <select id="id_type" name="id_type">
+            <option value="Licence">Licence</option>
+            <option value="NIN">NIN</option>
+            <option value="Passport">Passport</option>
+        </select>
+        <br><br>
+        <label for="id_number">Enter ID Number:</label>
+        <input type="text" id="id_number" name="id_number">
+        <br><br>
+        <button type="submit">Submit</button>
+		<button type="reset">Reset</button>
+    </form>
+</body>
+
+</html>
+

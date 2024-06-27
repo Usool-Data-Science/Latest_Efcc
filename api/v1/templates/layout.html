@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title> {{ title }} </title>
+    {% else %}
+    <title> EFCC </title>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- CDN LINK -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo"><img src="{{ url_for('static', filename='efcc_logo1.jfif') }}" alt="EFCC"></div>
+        <ul class="menu">
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/petitions">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Petition</span>
+                </a>
+            </li>
+            <li>
+                <a href="/complainants">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Complainant</span>
+                </a>
+            </li>
+            <li>
+                <a href="/suspects">
+                    <i class="fa-solid fa-people-robbery"></i>
+                    <span>Suspect</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="/offences">
+                    <i class="fa-solid fa-handcuffs"></i>
+                    <span>Offence</span>
+                </a>
+            </li> -->
+            <li>
+                <a href="/recoveries">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>Recovery</span>
+                </a>
+            </li>
+            <li>
+                <a href="/statuses">
+                    <i class="fa-solid fa-spinner"></i>
+                    <span>Status</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="{{ url_for('app_views.logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>EFCC</span>
+                {% if title %}
+                <h2>{{ title }}</h2>
+                {% else %}
+                <h2> MENU </h2>
+                {% endif %}
+            </div>
+            <div class="user--info">
+                <div class="search--box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search Case File No">
+                </div>
+                <img src="../static/dashboard.jpg" alt="Users">
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <script src="{{ url_for('static', filename='scripts/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+RESOURCE TERMS
+V = video Resources
+B = Blog
+S = Stackoverflow
+A = AI Code Assistant
+R = Code Repo
+D = Documentation
+
+FLASK-ADMIN
+V - https://www.youtube.com/watch?v=G1FBSYJ45Ww
+D - https://flask-admin.readthedocs.io/en/latest/introduction/#getting-started

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Information</title>
+    <!-- <link rel="stylesheet" href="styles.css">
+    <script src="recovery.js" defer></script> -->
+</head>
+
+<body>
+    <h2>Monetary Recovery Information</h2>
+    <h3>
+        <ul>
+            {% for recovery in recoveries %}
+            <li>{{ recovery.id }}: <b>{{ recovery.casefile_no }}</b></li>
+            {% endfor %}
+        </ul>
+    </h3>
+    <div id="monetaryRecovery">
+        <h3>Monetary Options</h3>
+        <button id="bankButton">Bank Draft</button>
+        <button id="cryptoButton">Crypto</button>
+        <button id="cashButton">Cash</button>
+
+        <div id="bankSection" class="hidden">
+            <h4>Bank Draft Details:</h4>
+            <!-- Bank Draft input fields go here -->
+        </div>
+
+        <div id="cryptoSection" class="hidden">
+            <h4>Crypto Details:</h4>
+            <!-- Crypto input fields go here -->
+        </div>
+
+        <div id="cashSection" class="hidden">
+            <h4>Cash Details:</h4>
+            <!-- Cash input fields go here -->
+        </div>
+    </div>
+</body>
+
+</html>

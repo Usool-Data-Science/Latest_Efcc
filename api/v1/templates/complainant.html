@@ -1,0 +1,216 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Flash message bar -->
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Complainant overview table  -->
+<div class="tabular--wrapper">
+    <h3 class="main--title">Complainants Overview</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="row">&nbsp;</th>
+                    {% for obj in complainants[0].keys() %}
+                    <th scope="col">{{ obj.title().replace('_', ' ') }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in complainants %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for k, v in obj.items() %}
+                    <td>{{ obj.get(k, '') }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="{{ complainants[0]|length - 1}}">Total Complainants: {{ sum_complainants }}
+                    </td>
+                    <td colspan="2"><button type="button" class="btn btn-dark" id="formSwitch" data-id="formContent">Add
+                            New Complainant</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Complainant Registration Form -->
+<div class="form--content hidden" id="formContent">
+    <form action="{{ url_for('app_views.post_complainants') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 form--title">Register Complainant</legend>
+            <!-- Name field -->
+            <div class="form-group">
+                {{ form.name.label(class="form-control-label") }}
+                {% if form.name.errors %}
+                {{ form.name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.name(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <!-- Address Field -->
+            <div class="form-group">
+                {{ form.address.label(class="form-control-label") }}
+                {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.address.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.address(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <!-- Nationality field -->
+            <div class="form-group">
+                {{ form.nationality.label(class="form-control-label") }}
+                {% if form.nationality.errors %}
+                {{ form.nationality(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.nationality.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.nationality(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <!-- State Field -->
+            <div class="form-group">
+                {{ form.state.label(class="form-control-label") }}
+                {% if form.state.errors %}
+                {{ form.state(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.state.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.state(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Gender Field -->
+            <div class="form-group">
+                {{ form.gender.label(class="form-control-label") }}
+                {% if form.gender.errors %}
+                {{ form.gender(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.gender.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.gender(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Age Field -->
+            <div class="form-group">
+                {{ form.age.label(class="form-control-label") }}
+                {% if form.age.errors %}
+                {{ form.age(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.age.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.age(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Occupation Field -->
+            <div class="form-group">
+                {{ form.occupation.label(class="form-control-label") }}
+                {% if form.occupation.errors %}
+                {{ form.occupation(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.occupation.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.occupation(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Religion Field -->
+            <div class="form-group">
+                {{ form.religion.label(class="form-control-label") }}
+                {% if form.religion.errors %}
+                {{ form.religion(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.religion.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.religion(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Education Field -->
+            <div class="form-group">
+                {{ form.education.label(class="form-control-label") }}
+                {% if form.education.errors %}
+                {{ form.education(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.education.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.education(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Phone Field -->
+            <div class="form-group">
+                {{ form.phone.label(class="form-control-label") }}
+                {% if form.phone.errors %}
+                {{ form.phone(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.phone.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.phone(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- Include additional fields as needed -->
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.reset(class="btn btn-outline-danger") }}
+            </div>
+            <!-- <button type="submit">Submit</button>
+            <button type="reset">Reset</button> -->
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

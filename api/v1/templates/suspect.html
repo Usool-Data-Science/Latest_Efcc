@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Flash message bar -->
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Complainant overview table  -->
+<div class="tabular--wrapper">
+    <h3 class="main--title">Suspects Overview</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="row">&nbsp;</th>
+                    {% for obj in suspects[0].keys() %}
+                    <th scope="col">{{ obj.title().replace('_', ' ') }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in suspects %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for k, v in obj.items() %}
+                    <td>{{ obj.get(k, '') }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="{{ suspects[0]|length - 2}}">Total Suspects: {{ sum_suspects }}
+                    </td>
+                    <td colspan="1"><button type="button" class="btn btn-dark" id="formSwitch"
+                            data-id="suspectFormContent">Add New
+                            Suspect</button></td>
+                    <td colspan="1"><button type="button" class="btn btn-dark" id="formSwitch"
+                            data-id="suspectIdContent">Add
+                            Suspect's ID</button></td>
+                    <td colspan="1"><button type="button" class="btn btn-dark" id="formSwitch"
+                            data-id="suspectFingerPrintContent">Add
+                            Suspect's Finger Print</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Suspect Registration Form -->
+<div class="form--content hidden" id="suspectFormContent">
+    <form id="formContent" action="{{ url_for('app_views.post_suspects') }}" method="POST">
+        {{ suspectForm.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 form--title">Register Suspect</legend>
+
+            <!-- Form fields for Suspect -->
+            {% for field in suspectForm %}
+            {% if field.type != 'CSRFToken' and field.type != 'SubmitField' %}
+            <div class="form-group">
+                {{ field.label(class="form-control-label") }}
+                {% if field.errors %}
+                {{ field(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="form-group">
+                {{ suspectForm.submit(class="btn btn-outline-info") }}
+                {{ suspectForm.reset(class="btn btn-outline-danger") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<!-- Suspect Identity Form -->
+<div class="form--content hidden" id="suspectIdContent">
+    <form id="formContent" action="{{ url_for('app_views.post_identities') }}" method="POST">
+        {{ idForm.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 form--title">Register Identity</legend>
+
+            <!-- Form fields for Identity -->
+            {% for field in idForm %}
+            {% if field.type != 'CSRFToken' and field.type != 'SubmitField' %}
+            <div class="form-group">
+                {{ field.label(class="form-control-label") }}
+                {% if field.errors %}
+                {{ field(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="form-group">
+                {{ idForm.submit(class="btn btn-outline-info") }}
+                {{ idForm.reset(class="btn btn-outline-danger") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<!-- Suspect's Finger Print Form -->
+<div class="form--content hidden" id="suspectFingerPrintContent">
+    <form id="formContent" action="{{ url_for('app_views.post_fingerprints') }}" method="POST">
+        {{ fingerForm.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 form--title">Register Fingerprint</legend>
+
+            <!-- Form fields for Fingerprint -->
+            {% for field in fingerForm %}
+            {% if field.type != 'CSRFToken' and field.type != 'SubmitField' %}
+            <div class="form-group">
+                {{ field.label(class="form-control-label") }}
+                {% if field.errors %}
+                {{ field(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="form-group">
+                {{ fingerForm.submit(class="btn btn-outline-info") }}
+                {{ fingerForm.reset(class="btn btn-outline-danger") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

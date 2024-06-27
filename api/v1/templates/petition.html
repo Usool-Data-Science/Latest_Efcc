@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Flash message bar -->
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Petition overview table  -->
+<div class="tabular--wrapper">
+    <h3 class="main--title">Petitions Overview</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="row">&nbsp;</th>
+                    {% for obj in petitions[0].keys() %}
+                    <th scope="col">{{ obj.title().replace('_', ' ') }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in petitions %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for k, v in obj.items() %}
+                    <td>{{ obj.get(k, '') }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="{{ petitions[0]|length - 1}}">Total Petitions: {{ sum_petition }}
+                    </td>
+                    <td colspan="2"><button type="button" class="btn btn-dark" id="formSwitch" data-id="formContent">Add
+                            New
+                            Petition</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Petition Registration Form -->
+<div class="form--content hidden" id="formContent">
+    <form action="{{ url_for('app_views.post_petitions') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 form--title">Register Petition</legend>
+
+            <!-- Form fields for Petition -->
+            {% for field in form %}
+            {% if field.type != 'CSRF Token' and field.type != 'SubmitField' %}
+            <div class="form-group">
+                {{ field.label(class="form-control-label") }}
+                {% if field.errors %}
+                {{ field(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.reset(class="btn btn-outline-danger") }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock content %}

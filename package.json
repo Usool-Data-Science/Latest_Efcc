@@ -1,0 +1,17 @@
+{
+  "name": "efcc_final",
+  "version": "1.0.0",
+  "description": "<center> <h1>HBNB - The Console</h1> </center>",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}

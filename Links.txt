@@ -1,0 +1,3 @@
+https://www.youtube.com/watch?v=CgCPP2KO5ds (Dashboard)
+https://fingerprint-module-r305-python-and-mysql.readthedocs.io/en/latest/chapter03.html#upload-to-database (Handling finger prints in python)
+https://bennettfeely.com/clippy/ (CSS cliparts maker)

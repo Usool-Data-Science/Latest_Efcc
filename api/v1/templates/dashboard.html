@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card--container">
+    <h3 class="main--title">Crime Statistics</h3>
+    <div class="card--wrapper">
+        <div class="suspect--card">
+            <div class="card--header">
+                <div class="fact">
+                    <span class="title">Petition Stat</span>
+                    <span class="fact-figure"> {{ sum_petition }} petitions</span>
+                </div>
+                <i class="fa-solid fa-scale-balanced icon"></i>
+            </div>
+            <span class="card-detail">
+                1000 petitions filed from last 30 days
+            </span>
+        </div>
+        <div class="suspect--card">
+            <div class="card--header">
+                <div class="fact">
+                    <span class="title">Complainant Stat</span>
+                    <span class="fact-figure">597 Complainants </span>
+                </div>
+                <i class="fa-solid fa-user-tie icon"></i>
+            </div>
+            <span class="card-detail">
+                598 complainants filed sum of 1000 petitions.
+            </span>
+        </div>
+        <div class="suspect--card">
+            <div class="card--header">
+                <div class="fact">
+                    <span class="title">Suspect Stat</span>
+                    <span class="fact-figure">5237 Suspects</span>
+                </div>
+                <i class="fa-solid fa-people-robbery icon"></i>
+            </div>
+            <span class="card-detail">
+                45% of suspect are from Lagos state.
+            </span>
+        </div>
+        <!-- <div class="suspect--card">
+                    <div class="card--header">
+                        <div class="fact">
+                            <span class="title">Offence Stat</span>
+                            <span class="fact-figure">235 Offences</span>
+                        </div>
+                        <i class="fa-solid fa-handcuffs icon"></i>
+                    </div>
+                    <span class="card-detail">
+                        Most commited offence: Money Laundering (64%)
+                    </span>
+                </div> -->
+        <div class="suspect--card">
+            <div class="card--header">
+                <div class="fact">
+                    <span class="title">Recovery Stat</span>
+                    <span class="fact-figure">123,443 Recovery</span>
+                </div>
+                <i class="fa-solid fa-gem icon"></i>
+            </div>
+            <span class="card-detail">
+                Most Recovered Item: Mobile Phone (72%)
+            </span>
+        </div>
+        <div class="suspect--card">
+            <div class="card--header">
+                <div class="fact">
+                    <span class="title">Status Stat</span>
+                    <span class="fact-figure">1000 petitions</span>
+                </div>
+                <i class="fa-solid fa-spinner icon"></i>
+            </div>
+            <span class="card-detail">
+                30% Conviction<br> 46% Under Investigation
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="tabular--wrapper">
+    <h3 class="main--title">Crime Investigation Overview</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="row">&nbsp;</th>
+                    {% for obj in dashboard_result_list[0].keys() %}
+                    <th scope="col">{{ obj }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in dashboard_result_list %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    {% for k, v in obj.items() %}
+                    <td>{{ obj.get(k, '') }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="{{ dashboard_result_list[0]|length + 1 }}">Total Petitions: {{ sum_petition }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+{% endblock content %}

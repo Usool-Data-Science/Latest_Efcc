@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title> {{ title }} </title>
+    {% else %}
+    <title> EFCC </title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landingpage.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+</head>
+
+<body>
+    <!-- Header Content -->
+    <header>
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg bg-light navbar-dark-font py-2 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='efcc_logo1.jfif') }}"
+                        alt="Quiz-It" class="logo"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#mission">Our Mission</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#vision">Vision</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#news">News & Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#resources">Resources</a>
+                        </li>
+                    </ul>
+                    <li class="nav-item dropdown text-warning me-5 px-5 staffIcon">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-people"></i> Staff Zone
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('app_views.login') }}">Login</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('app_views.register') }}">Register</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('admin.index') }}">Admin</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main role="main" class="curve-edge">
+        <!-- About Us -->
+        <section id="about" class="bg-dark-bg text-light-font p-5 p-lg-0 pt-lg-5 text-sm-start curve-edge">
+            <div class="container">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <div class="mx-5">
+                        <h1 class="text-warning no-wrap"><i class="bi bi-people-fill"></i> Who Are We?</h1>
+                        <p class="lead justify">
+                            The Economic and Financial Crimes Commission (EFCC) Nigeria is a premier law enforcement
+                            agency dedicated to combating
+                            economic and financial crimes within Nigeria. Established in 2003, the EFCC has a broad
+                            mandate to investigate and
+                            prosecute financial crimes such as fraud, money laundering, embezzlement, and corruption.
+                            The commission operates with
+                            the core mission of ensuring accountability and transparency in both public and private
+                            sectors, thereby fostering
+                            economic stability and growth in Nigeria.
+
+                            We are committed to safeguarding the Nigerian economy from illicit financial activities
+                            through robust
+                            investigation and enforcement strategies. We work in close collaboration with other national
+                            and
+                            international agencies to track and apprehend individuals and entities involved in financial
+                            crimes. Through its
+                            efforts, we aim to promote integrity, uphold the rule of law, and enhance the overall
+                            economic wellbeing of the
+                            nation.
+                        </p>
+                    </div>
+                    <img class="img-fluid w-50 d-none d-sm-block rounded" src="static/img/body/question2.png"
+                        alt="Favourite" width="400" height="400">
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Mission -->
+        <section id="service" class="bg-dark-bg text-light-font p-5 p-lg-0 pt-lg-5 text-sm-start">
+            <div class="container">
+                <div class="d-sm-flex align-items-center justify-content-evenly">
+                    <img class="img-fluid w-50 d-none d-sm-block rounded" src="static/img/body/mission.png"
+                        alt="Favourite">
+                    <div class="m-5">
+                        <h1 class="text-warning no-wrap"><i class="bi bi-bullseye"></i> Our Mission </h1>
+                        <p class="lead my-4 justify">
+                            <span class="paragraph">We are committed to investigating and prosecuting individuals and
+                                organizations
+                                involved in
+                                activities such as fraud, money laundering, embezzlement, and corruption. Our goal is to
+                                eradicate these crimes to
+                                ensure a fair and just economic environment for all Nigerians.</span>
+                            </span>
+                            <span class="paragraph">We strive to promote accountability and transparency in both the
+                                public and
+                                private sectors. By enforcing stringent
+                                anti-corruption measures and ensuring adherence to financial regulations, we aim to
+                                build a
+                                culture of integrity and
+                                ethical conduct. Our efforts are directed towards fostering an environment where honesty
+                                and
+                                transparency are the norms,
+                                contributing to the overall governance and development of Nigeria.
+                            </span>
+                            <span class="paragraph">We help create a secure and conducive atmosphere for business
+                                operations and
+                                investments. Our work supports the
+                                nation's economic policies and initiatives, thereby contributing to sustainable
+                                development
+                                and prosperity.</span>
+                            <span class="paragraph">We empower individuals and communities to recognize, report,
+                                and resist
+                                economic and financial crimes,
+                                fostering a more vigilant and informed society.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News and Information -->
+        <section id="news" class="bg-dark-bg text-light-font p-5 p-lg-0 pt-lg-5 text-sm-start">
+            <div class="container">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <div class="m-5">
+                        <h1 class="text-warning no-wrap"><i class="bi bi-newspaper"></i> News and Information
+                        </h1>
+                        <p class="lead my-4 justify">
+                            Stay updated with the latest news and information from the Economic and Financial Crimes
+                            Commission (EFCC) as we work
+                            tirelessly to combat financial crimes in Nigeria. Our news section provides timely updates
+                            on ongoing investigations,
+                            high-profile cases, legal proceedings, and enforcement actions. Follow our official channels
+                            for insights into our
+                            efforts to promote transparency, integrity, and accountability in the financial sector. With
+                            a commitment to keeping the
+                            public informed, the EFCC ensures that all stakeholders are aware of our achievements and
+                            challenges in the fight
+                            against economic and financial crimes.
+                        </p>
+                    </div>
+                    <img class="img-fluid w-50 d-none d-sm-block rounded" src="static/img/body/info.png"
+                        alt="Favourite">
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Vision -->
+        <section id="vision" class="bg-dark-bg text-light-font p-5 p-lg-0 pt-lg-5 text-sm-start">
+            <div class="container">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <img class="img-fluid w-50 d-none d-sm-block rounded" src="static/img/body/seeBeyond.png"
+                        alt="Favourite">
+                    <div class="m-5">
+                        <h1 class="text-warning no-wrap"><i class="bi bi-eye-fill"></i> Our Vision</h1>
+                        <p class="lead my-4 justify">
+                            The vision of the Economic and Financial Crimes Commission (EFCC) Nigeria is to be a model
+                            law enforcement agency,
+                            leading the fight against economic and financial crimes both nationally and globally. We
+                            aspire to build a society free
+                            of corruption and financial malfeasance, where integrity and accountability are the norms.
+                            Through innovative
+                            strategies, robust enforcement of laws, and a commitment to transparency, we aim to restore
+                            public confidence in
+                            Nigeria's financial systems and contribute to the nation's overall economic stability and
+                            growth. Our vision is to
+                            create a future where every Nigerian can thrive in an environment of fairness, justice, and
+                            prosperity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Frequently Asked Questions -->
+        <section id="faq" class="bg-dark-bg text-light-font p-5 p-lg-0 py-lg-5 text-sm-start">
+            <div class="container">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <h1 class="text-warning no-wrap pb-3"><i class="bi bi-question-diamond-fill"></i> Frequently
+                            Asked
+                            Questions
+                        </h1>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    What is the EFCC?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">The Economic and Financial Crimes Commission (EFCC) is a
+                                    Nigerian
+                                    law enforcement agency that investigates and prosecutes economic and financial
+                                    crimes such
+                                    as fraud, money laundering, and corruption.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    How can I report a financial crime?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">You can report a financial crime to the EFCC through our
+                                    official
+                                    website, by visiting any of our offices, or by calling our hotline. We take all
+                                    reports
+                                    seriously and ensure confidentiality for whistleblowers.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                    What types of crimes does the EFCC investigate?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">The EFCC investigates a wide range of economic and financial
+                                    crimes,
+                                    including fraud, money laundering, embezzlement, tax evasion, bribery, and
+                                    corruption. We
+                                    also investigate cybercrimes and financial terrorism.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                    aria-controls="flush-collapseFour">
+                                    How does the EFCC protect whistleblowers?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">The EFCC has measures in place to protect the identity and
+                                    safety of
+                                    whistleblowers. We ensure that reports can be made anonymously and that all
+                                    information
+                                    provided is handled with the utmost confidentiality.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFive" aria-expanded="false"
+                                    aria-controls="flush-collapseFive">
+                                    How can I verify the legitimacy of EFCC operations?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFive" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">You can verify the legitimacy of EFCC operations by
+                                    contacting our
+                                    official channels or visiting our website. We also publish press releases and
+                                    updates on our
+                                    investigations and activities regularly.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseSix" aria-expanded="false"
+                                    aria-controls="flush-collapseSix">
+                                    What are the penalties for financial crimes in Nigeria?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseSix" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Penalties for financial crimes in Nigeria can vary depending
+                                    on the
+                                    severity of the offense. They can range from fines and restitution to lengthy prison
+                                    sentences. The EFCC works diligently to ensure that perpetrators are brought to
+                                    justice.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseSeven" aria-expanded="false"
+                                    aria-controls="flush-collapseSeven">
+                                    How can I stay informed about EFCC activities?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseSeven" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">You can stay informed about EFCC activities by following our
+                                    official social media channels, subscribing to our newsletter, and visiting our
+                                    website
+                                    regularly for updates on our operations and initiatives.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="img-fluid w-50 d-none d-sm-block rounded" src="static/img/body/faq.png" alt="FAQ">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Content -->
+    <footer class="p-1 bg-light-bg ligth-font text-center">
+        <div class="container">
+            <p class="lead">Copyright &copy; 2024 EFCC-NG
+                <a href="#" class="float-end d-inline-block">
+                    <i class="bi bi-arrow-up-circle h3"></i>
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Option bootstrap bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>

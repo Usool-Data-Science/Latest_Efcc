@@ -1,0 +1,176 @@
+PROBLEM 1:
+from werkzeug.urls import url_parse
+ImportError: cannot import name 'url_parse' from 'werkzeug.urls' (/home/usool/.local/lib/python3.8/site-packages/werkzeug/urls.py)
+SOLUTION 1:
+- Open the file part from which the importError is occuring i.e. vim /home/usool/.local/lib/python3.8/site-packages/flask/testing.py
+- Comment out the line 9 which is having import error and replace it with:
+from urllib.parse import urlparse as url_parse
+- instead of:
+from werkzeug.urls import url_parse
+
+PROBLEM 2:
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+
+PROBLEM 3:
+Exception: Install 'email_validator' for email validation support.
+SOLUTION 3:
+- pip install email_validator
+- import email_validator (In the forms.py file)
+
+PROBLEM 4:
+AttributeError: type object 'Staff' has no attribute 'query'
+    CAUSE: This occured because our Staff object inherited from (BaseModel, Base) and not from (db.Model and UserMixin)
+    so running `staff = Staff.query.filter_by(email=email.data).first()` will not work.
+    SOLUTION:
+        We need to create a session and call the query on that session instead of calling it on the object directly like this:
+            all_staffs = storage.all(Staff)
+                    the_staff = ''
+                    for staff in all_staffs:
+                        staff_dict = staff.to_dict()
+                        if staff_dict['email'] == email.data:
+                            the_staff == staff
+                    if the_staff:
+                        raise ValidationError("That email is taken. Please choose another email!")
+
+PROBLEM 5:
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: staffs
+[SQL: SELECT staffs.first_name AS staffs_first_name, staffs.last_name AS staffs_last_name, staffs.email AS staffs_email, staffs.password AS staffs_password, staffs.age AS staffs_age, staffs.state AS staffs_state, staffs.id AS staffs_id, staffs.created_at AS staffs_created_at, staffs.updated_at AS staffs_updated_at 
+FROM staffs]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+    CAUSE: This problem occured because we have not created the staff table
+    SOLUTION: Add the staff table to the db_storage class after importing it. 
+        This will ensure that it is created by .reload() when the storage is spinned up.
+        Also ensure that you add it to the console.py, otherwise it will tell you that
+        staff object does not exist.
+
+
+PROBLEM 6:
+There is an error creating your staff account alert everytime you visit the registration page.
+    CAUSE: This occurs because i dont restrict the flash message to only POST request while the
+        Endpoint is featuring both GET and POST.
+    SOLUTION: Condition the flash messages only to the POST request.
+
+PROBLEM 7:
+dropdown menu is not working.
+SOLUTION: Just turn on the internet because the dropdown is using bootstrap and it requires internet.
+
+PROBLEM 8:
+def validate_email(self, email) is not working in the RegistrationForm()
+    SOLUTION:
+        Ensure you include the unique constrain on the email property inside the staff model.
+
+PROBLEM 9:
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+    CAUSE: Login manager does not get any user returned by the user_loader. i.e. `current_app.login_manager._load_user()`
+        This happens because the @login_manager.user_loader is not in the same folder the login_manage.init_app(app) is.
+    SOLUTION: Just ensure that you define the load_user() in the same directly you declared login_manager(). i.e. app.py
+    BEST PRACTICES: user_id we user is uuid which is different from the expected integer id.
+        Go to db_storage.get() to change how it returns based on id, change it from string to int    
+
+PROBLEM 10:
+(efcc_env) usool@FountainPC:~/Projects/efcc_Final$ EFCC_MYSQL_USER=efcc  EFCC_MYSQL_PWD=paswodEFCC1_346_810_trewq EFCC_MYSQL_HOST=localhost EFCC_STORAGE_TYPE=db python3 -m api.v1.app
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.140.147:5000
+Press CTRL+C to quit
+ * Restarting with stat
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/usool/Projects/efcc_Final/api/v1/app.py", line 6, in <module>
+    from api.v1.views import app_views
+  File "/home/usool/Projects/efcc_Final/api/v1/views/__init__.py", line 5, in <module>
+    from api.v1.views.index import *
+  File "/home/usool/Projects/efcc_Final/api/v1/views/index.py", line 20, in <module>
+    @app_views.route("/status", strict_slashes=False)
+  File "/home/usool/.local/lib/python3.8/site-packages/flask/sansio/scaffold.py", line 46, in wrapper_func
+    self._check_setup_finished(f_name)
+  File "/home/usool/.local/lib/python3.8/site-packages/flask/sansio/blueprints.py", line 215, in _check_setup_finished
+    raise AssertionError(
+AssertionError: The setup method 'route' can no longer be called on the blueprint 'app_views'. It has already been registered at least once, any changes will not be applied consistently.
+Make sure all imports, decorators, functions, etc. needed to set up the blueprint are done before registering it.
+    CAUSE: First this exception is caused by not importing all needed files for the blueprints before registering it.
+    One thing to note is that the app will work fine in flask.2.1.0, but when i installed flask-sqlalchemy, it autoupdate
+    my flask form 2.1.0 to 3.0.3 as show here
+            Installing collected packages: flask, flask-sqlalchemy
+        Attempting uninstall: flask
+            Found existing installation: Flask 2.1.0
+            Uninstalling Flask-2.1.0:
+            Successfully uninstalled Flask-2.1.0
+        Successfully installed flask-3.0.3 flask-sqlalchemy-3.1.1
+    SOLUTION:
+        Downgrade the flask to 2.1.0. pip install flask==2.1.0
+
+PROBLEM 11:
+ValueError
+File "/home/usool/Projects/efcc_Final/api/v1/views/index.py", line 62, in login
+if user and bcrypt.check_password_hash(user.get('password'), form.password.data):
+File "/home/usool/.local/lib/python3.8/site-packages/flask_bcrypt.py", line 225, in check_password_hash
+return hmac.compare_digest(bcrypt.hashpw(password, pw_hash), pw_hash)
+ValueError: Invalid salt
+    CAUSE: occurs when the hash string used with bcrypt.check_password_hash is not properly formatted or
+        has been corrupted. For our case, wEH forgot to has the password in the register route before persisting
+        it to the database.
+    SOLUTION:
+        Hash the form.password.data before storing inside the Staf(password=pasw_hs)
+
+PROBLEM 12:
+File "/home/usool/Projects/efcc_Final/api/v1/views/index.py", line 62, in login
+login_user(user, remember=form.remember.data)
+File "/home/usool/.local/lib/python3.8/site-packages/flask_login/utils.py", line 180, in login_user
+if not force and not user.is_active:
+AttributeError: 'dict' object has no attribute 'is_active'
+    CAUSE: This occured because the user object is converted to dict in the login route.
+    SOLUTION: 1. Ensure that the user object to be logged in is retrieve as Object and not dict.
+    `user = models.storage.get_by_feature(Staff, 'email', form.email.data)` dont add .to_dict()
+
+PROBLEM 13:
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: complainant_suspect.complainant_id, complainant_suspect.suspect_id
+[SQL: INSERT INTO complainant_suspect (complainant_id, suspect_id) VALUES (?, ?)]
+[parameters: [(4, 4), (4, 4), (5, 5), (5, 5), (1, 1), (1, 1), (2, 2), (2, 2), (3, 3), (3, 3)]]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+    CAUSE: This occurs because we are adding the relationship between complainant and suspect more than once.
+    SOLUTION: If we have added `suspect1.complainants.append(complainant1)` we dont need to add the opposite again
+        because it will populate the association table and flip it automatically
+
+PROBLEM 14:
+    y = self.scopefunc()
+    File "/home/usool/.local/lib/python3.8/site-packages/flask_sqlalchemy/session.py", line 111, in _app_ctx_id
+        return id(app_ctx._get_current_object())  # type: ignore[attr-defined]
+    File "/home/usool/.local/lib/python3.8/site-packages/werkzeug/local.py", line 508, in _get_current_object
+        raise RuntimeError(unbound_message) from None
+    RuntimeError: Working outside of application context.
+    SOLUTION:
+        Add `app.app_context().push()` beneath the app instantiation and paste this code before running the model instances:
+        with app.app_context():
+            db.create_all()
+
+PROBLEM 15:
+   raise exc.InvalidRequestError(
+    sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[Staff(staffs)], expression 'Petition' failed to locate a name ('Petition'). If this is a class name, consider adding this relationship() to the <class 'models.staff.Staff'> class after both dependent classes have been defined.)
+    CAUSE: The database is looking for Petition object from within the Staff module where the relationship is specified
+    SOLUTION: Import Petition into the Staff module
+
+PROBLEM 16:
+sqlalchemy.exc.InvalidRequestError: When initializing mapper Mapper[Petition(petitions)], expression 'petition_suspect' failed to locate a name ("name 'petition_suspect' is not defined"). If this is a class name, consider adding this relationship() to the <class 'models.petition.Petition'> class after both dependent classes have been defined.
+
+
+PROBLEM 17:
+File "/usr/local/lib/python3.8/dist-packages/sqlalchemy/orm/relationships.py", line 1868, in _setup_entity
+    entity = class_mapper(resolved_argument, configure=False)
+  File "/usr/local/lib/python3.8/dist-packages/sqlalchemy/orm/base.py", line 562, in class_mapper
+    raise exc.UnmappedClassError(class_)
+sqlalchemy.orm.exc.UnmappedClassError: Class 'sqlalchemy.sql.schema.Identity' is not mapped
+CAUSE: This occurs because of how we declared the 1-many relationship.
+    fingerprints = db.relationship('FingerPrint', backref='suspects') #, cascade='all, delete-orphan')
+
+PROBLEM 18:
+    flask jinja2 cant render my template even when it is in the templates folder that is in the same directory as my app
+    CAUSE: You are instantiation flask app in the models but running it in the api.
+    SOLUTION: Your templates should reside in the same directory where you instantiate your flask app.

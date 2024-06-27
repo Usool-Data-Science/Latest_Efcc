@@ -1,0 +1,90 @@
+// import the amalgamation of all the bootstrap config only by import bootstrap.scss
+
+// Check the variables you want to update and declare it before the import
+
+$primary: rgba(21, 128, 0, 0.774);
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$custom-theme-color: (
+    "light-bg": #f0f8ff,
+    "dark-bg": #000,
+    "dark-font": #000,
+    "light-font": #fff,
+    "dark-warning": #7F0707
+);
+
+$theme-colors: map-merge($custom-theme-color, $theme-colors);
+
+.logo {
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 50%;
+    background-color: #1B2B34;
+}
+
+.paragraph {
+    display: block;
+    text-indent: 4ch;
+}
+
+// Source mixin
+@mixin make-container($padding-x: 5px) {
+    width: 100%;
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+// Usage
+.custom-container {
+    @include make-container();
+}
+
+body::before {
+    display: block;
+    content: "";
+}
+
+.justify {
+    text-align: justify;
+    line-height: 2rem;
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.curve-edge {
+    border-radius: 5px;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.subscribe {
+    background-color: #1B2B34;
+    border-radius: 5px;
+}
+
+.landingSubsection {
+    color: var(dark-warning);
+}
+
+.staffIcon {
+    display: inline-block;
+    padding: 1rem;
+    font-size: 1.2rem;
+    list-style-type: none;
+    background-color: #000;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+@import '../node_modules/bootstrap/scss/bootstrap';
