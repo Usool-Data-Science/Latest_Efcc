@@ -174,3 +174,15 @@ PROBLEM 18:
     flask jinja2 cant render my template even when it is in the templates folder that is in the same directory as my app
     CAUSE: You are instantiation flask app in the models but running it in the api.
     SOLUTION: Your templates should reside in the same directory where you instantiate your flask app.
+
+PROBLEM 19:
+AssertionError
+AssertionError: The setup method 'errorhandler' can no longer be called on the application. It has already handled its first request, any changes will not be applied consistently.
+Make sure all imports, decorators, functions, etc. needed to set up the application are done before running it.
+    CAUSE: I am handling error in another module different from where i instantiated the app.
+    SOLUTION: Ensure you handle the error and login manager in the same file where you instantiated the module.
+
+PROBLEM 20: Environment variables not found, which course CRSF missing.
+    CAUSE: .env file is in the wrong directory
+    SOLUTION: Ensure that .env file is in the directory why you are running "python3 -m api.v1.app"
+        for this case it is in the root directory.

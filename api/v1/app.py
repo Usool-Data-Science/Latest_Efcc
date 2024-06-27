@@ -1,19 +1,11 @@
 #!/usr/bin/python3
 """A flask application that runs the endpoints"""
-from models import app, db
-from flask import Flask, render_template, make_response, jsonify
+from models import app
 
 # @app.teardown_appcontext
 # def close_db(error):
 #     """Closes the data"""
 #     db.sesssion.remove()
-
-@app.errorhandler(404)
-def not_found(error):
-    """Custom error message"""
-    response = jsonify({'error': 'Not Found'})
-    return make_response(response)
-
 
 if __name__ == "__main__":
     """Module runner"""

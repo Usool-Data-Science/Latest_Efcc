@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row d-flex-column card--container mx-2">
+    <h3 class="main--title">Crime Statistics</h3>
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Petition Stat</span>
+                            <span class="fact-figure"> {{ sum_petition }} petitions</span>
+                        </div>
+                        <i class="fa-solid fa-scale-balanced icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        1000 petitions filed from last 30 days
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Complainant Stat</span>
+                            <span class="fact-figure">{{ sum_complainants }} Complainants </span>
+                        </div>
+                        <i class="fa-solid fa-user-tie icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        598 complainants filed sum of 1000 petitions.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Suspect Stat</span>
+                            <span class="fact-figure">5237 Suspects</span>
+                        </div>
+                        <i class="fa-solid fa-people-robbery icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        45% of suspect are from Lagos state.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Recovery Stat</span>
+                            <span class="fact-figure">123,443 Recovery</span>
+                        </div>
+                        <i class="fa-solid fa-gem icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        Most Recovered Item: Mobile Phone (72%)
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Status Stat</span>
+                            <span class="fact-figure">1000 petitions</span>
+                        </div>
+                        <i class="fa-solid fa-spinner icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        30% Conviction<br> 46% Under Investigation
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title card--header">
+                        <div class="fact">
+                            <span class="title">Status Stat</span>
+                            <span class="fact-figure">1000 petitions</span>
+                        </div>
+                        <i class="fa-solid fa-spinner icon"></i>
+                    </div>
+                    <span class="card-text card-detail">
+                        30% Conviction<br> 46% Under Investigation
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mx-2">
+    <div class="tabular--wrapper">
+        <h3 class="main--title">Crime Investigation Overview</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="row">&nbsp;</th>
+                        {% for obj in dashboard_result_list[0].keys() %}
+                        <th scope="col">{{ obj }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in dashboard_result_list %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        {% for k, v in obj.items() %}
+                        <td>{{ obj.get(k, '') }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="table-dark ps-3">
+                    <tr>
+                        <td colspan="{{ dashboard_result_list[0]|length + 1 }}">Total Petitions: {{ sum_petition }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

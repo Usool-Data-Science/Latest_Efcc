@@ -1,8 +1,7 @@
-from flask import (Flask, jsonify, render_template, flash, request, 
+from flask import (jsonify, render_template, flash, request, 
                    redirect, url_for)
 from flask_login import login_user, current_user, logout_user, login_required
 
-import api
 from api.v1.views import app_views
 from api.v1.forms import LoginForm, RegistrationForm
 import models
@@ -15,12 +14,12 @@ def status():
 
 @app_views.route("/", strict_slashes=False)
 def home():
-    return render_template('identity.html')
+    return render_template('landingpage.html')
 
 
 @app_views.route("/register", methods=['GET', 'POST'], strict_slashes=False)
 def register():
-    from api.v1.app import bcrypt
+    from models import bcrypt
     from models.staff import Staff
 
     if current_user.is_authenticated:
@@ -49,7 +48,7 @@ def register():
 
 @app_views.route("/login", methods=['GET', 'POST'], strict_slashes=False)
 def login():
-    from api.v1.app import bcrypt
+    from models import bcrypt
     from models.staff import Staff
 
     if current_user.is_authenticated:
@@ -76,6 +75,7 @@ def logout():
 @app_views.route("/dashboard", strict_slashes=False)
 @login_required
 def dashboard():
+    from models.petition import Petition
     response = []
     all_petitions = Petition.query.all()
     """Get complainants names"""

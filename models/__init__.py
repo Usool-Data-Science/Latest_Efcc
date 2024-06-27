@@ -2,7 +2,8 @@
 """This module instantiates an object of class FileStorage"""
 from os import getenv
 from flask import Flask
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
+from flask import make_response, jsonify
 
 # Extension importation
 from flask_login import LoginManager
@@ -18,11 +19,11 @@ from api.v1.views import app_views
 load_dotenv()
 
 # App Creation
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.register_blueprint(app_views)
 app.config["SECRET_KEY"] = getenv('APP_SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///new_efcc.db'
-app.config['EXPLAIN_TEMPLATE_LOADING'] = True
+# app.config['EXPLAIN_TEMPLATE_LOADING'] = True
 app.app_context().push()
 
 
@@ -60,3 +61,9 @@ def load_user(user_id):
             four attributes
     """
     return Staff.query.get(int(user_id))
+
+@app.errorhandler(404)
+def not_found(error):
+    """Custom error message"""
+    response = jsonify({'error': 'Not Found'})
+    return make_response(response)

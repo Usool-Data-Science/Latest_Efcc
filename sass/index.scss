@@ -7,15 +7,32 @@ $primary: rgba(21, 128, 0, 0.774);
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 
+$font-family-base: 'Arial, sans-serif';
+$font-family-sans-serif: 'Helvetica, Arial, sans-serif';
+$font-family-monospace: 'Courier New, monospace';
+
 $custom-theme-color: (
     "light-bg": #f0f8ff,
     "dark-bg": #000,
     "dark-font": #000,
     "light-font": #fff,
-    "dark-warning": #7F0707
+    "dark-warning": #e91b1b,
+);
+
+$table-variants: (
+    "primary": shift-color($primary, $table-bg-scale),
+    "secondary": shift-color($secondary, $table-bg-scale),
+    "success": shift-color($success, $table-bg-scale),
+    "info": shift-color($info, $table-bg-scale),
+    "warning": shift-color($warning, $table-bg-scale),
+    "danger": shift-color($danger, $table-bg-scale),
+    "light": $light,
+    "dark": #7F0707,
 );
 
 $theme-colors: map-merge($custom-theme-color, $theme-colors);
+$table-striped-color: #002;
+$table-striped-bg: #f15252;
 
 .logo {
     height: 3.5rem;
@@ -86,5 +103,10 @@ footer {
     border-radius: 5px;
     width: fit-content;
 }
+
+// thead {
+//     background-color: map-get($custom-theme-color, "dark-warning");
+//     color: map-get($custom-theme-color, "light-font");
+// }
 
 @import '../node_modules/bootstrap/scss/bootstrap';
