@@ -11,9 +11,11 @@
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='scripts/petition.js') }}" defer></script>
 
     <!-- CDN LINK -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -21,7 +23,7 @@
         <div class="logo"><img src="{{ url_for('static', filename='efcc_logo1.jfif') }}" alt="EFCC"></div>
         <ul class="my-menu list-group list-group-flush">
             <li class="list-group-item">
-                <a href="#">
+                <a href="/dashboard">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -64,7 +66,7 @@
             </li>
             <li class="list-group-item logout">
                 <a href="{{ url_for('app_views.logout') }}">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
                 </a>
             </li>
@@ -73,13 +75,18 @@
     <div class="main--content">
         <div class="row mx-2">
             <div class="d-flex bd-highlight justify-content-between align-items-center header--wrapper">
-                <div class="header--title">
+                <!-- <div class="header--title">
                     {% if title %}
                     {{ title }}
                     {% else %}
                     MENU
                     {% endif %}
-                </div>
+                </div> -->
+
+                <h2 class="header--title show-xl">
+                    Welcome back, {{ current_user.first_name }}!
+                </h2>
+
                 <div class="flex-nowrap d-flex justify-content-center align-items-center">
                     <div class="search--box">
                         <i class="fa-solid fa-search"></i>

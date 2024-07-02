@@ -186,3 +186,22 @@ PROBLEM 20: Environment variables not found, which course CRSF missing.
     CAUSE: .env file is in the wrong directory
     SOLUTION: Ensure that .env file is in the directory why you are running "python3 -m api.v1.app"
         for this case it is in the root directory.
+
+PROBLEM 21:
+Admin Login is redirecting to dashboard always.
+    CAUSE: The cause it the presence of user authentication check in the admin view.
+        if current_user.is_authenticated:
+        return redirect(url_for("app_views.dashboard"))
+    SOLUTION: remove the authentication check and leave it only in the login view.
+
+PROBLEM 22:
+when i ran this, i got the error below it, briefly tell me the correct way to return that template:
+return render_template('/admin/index.html', title='Admin', form=form)
+jinja2.exceptions.UndefinedError: 'admin_base_template' is undefined
+
+PROBLEM 23:
+AssertionError: A setup function was called after the first request was handled. This usually indicates a bug in the application where a module was not imported and decorators or other functionality was called too late.
+To fix this make sure to import all your view modules, database models, and everything related at a central place before the application starts serving requests.
+
+SOLUTION:
+    https://stackoverflow.com/questions/17971510/flask-admin-extending-templates/18011275#18011275

@@ -107,5 +107,6 @@ class LoginForm(FlaskForm):
     "A blueprint for the Login form that will be sent to frontend"
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    admin = BooleanField('Admin?')
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')

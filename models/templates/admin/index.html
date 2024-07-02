@@ -1,6 +1,191 @@
 {% extends 'admin/master.html' %}
 
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+{% endblock %}
+
+
 {% block body %}
-<h1>I added this just now</h1>
-<p>Hello world</p>
+<main role="main"
+    class="curve-edge flex-grow-1 p-5 bg-dark-bg text-light-font d-flex justify-content-center align-items-center">
+    <div id="carouselExampleSlidesOnly" class="carousel slide show-xl col-lg-6" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/1.jpg') }}"
+                    class="rounded d-block w-100" alt="Img1">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/2.jfif') }}"
+                    class="rounded d-block w-100" alt="Img2">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/3.PNG') }}"
+                    class="rounded d-block w-100" alt="Img3">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/5.PNG') }}"
+                    class="rounded d-block w-100" alt="Img3">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/6.PNG') }}"
+                    class="rounded d-block w-100" alt="Img3">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/7.jpg') }}"
+                    class="rounded d-block w-100 " alt="Img3">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/8.jpg') }}"
+                    class="rounded d-block w-100" alt="Img3">
+            </div>
+            <div class="carousel-item">
+                <img width="600" height="450" src="{{ url_for('static', filename='img/efcc/9.jpg') }}"
+                    class="rounded d-block w-100" alt="Img3">
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <!-- Flash Message -->
+        <div class="px-5">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        <!-- Registration Form -->
+        <form method="POST" action="{{ url_for('app_views.admin') }}">
+            {{ form.hidden_tag() }}
+            <fieldset class="row gy-2 gx-3 align-items-center form-group">
+                <legend class="border-bottom mt-4">Register New Staff</legend>
+                <!-- First Name Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.first_name.label(class="form-control-label") }}
+                    {% if form.first_name.errors %}
+                    {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.first_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.first_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Last Name Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.last_name.label(class="form-control-label") }}
+                    {% if form.last_name.errors %}
+                    {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.last_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.last_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Email Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Password Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Confirm Password Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.confirm_password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Age Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.age.label(class="form-control-label") }}
+                    {% if form.age.errors %}
+                    {{ form.age(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.age.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.age(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Gender Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.gender.label(class="form-control-label") }}
+                    {% if form.gender.errors %}
+                    {{ form.gender(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.gender.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.gender(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- State Of Origin Field -->
+                <div class="col-md-4 form-group mt-4">
+                    {{ form.state_of_origin.label(class="form-control-label") }}
+                    {% if form.state_of_origin.errors %}
+                    {{ form.state_of_origin(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.state_of_origin.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.state_of_origin(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group mt-4">
+                {{ form.submit(class="btn btn-outline-success") }}
+                {{ form.reset(class="btn btn-outline-danger") }}
+            </div>
+        </form>
+    </div>
+</main>
 {% endblock %}

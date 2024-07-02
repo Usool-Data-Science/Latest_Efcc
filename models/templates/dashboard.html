@@ -4,110 +4,77 @@
     <h3 class="main--title">Crime Statistics</h3>
     <div class="row">
         <!-- Card 1 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
+        <div class="col-sm-6 col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Petition Stat</span>
-                            <span class="fact-figure"> {{ sum_petition }} petitions</span>
-                        </div>
-                        <i class="fa-solid fa-scale-balanced icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        1000 petitions filed from last 30 days
-                    </span>
+                <div class="card-header">
+                    <i class="fa-solid fa-scale-balanced icon"></i>
+                    <strong>Petition</strong>
                 </div>
-            </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Complainant Stat</span>
-                            <span class="fact-figure">{{ sum_complainants }} Complainants </span>
-                        </div>
-                        <i class="fa-solid fa-user-tie icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        598 complainants filed sum of 1000 petitions.
-                    </span>
+                <div class="card-body row">
+                    <p class="col-12"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
                 </div>
             </div>
         </div>
         <!-- Card 3 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
+        <div class="col-sm-6 col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Suspect Stat</span>
-                            <span class="fact-figure">5237 Suspects</span>
-                        </div>
-                        <i class="fa-solid fa-people-robbery icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        45% of suspect are from Lagos state.
-                    </span>
+                <div class="card-header">
+                    <i class="fa-solid fa-people-robbery icon"></i>
+                    <strong>Suspect</strong>
+                </div>
+                <div class="card-body row">
+                    <p class="col-"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
                 </div>
             </div>
         </div>
         <!-- Card 4 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
+        <div class="col-sm-6 col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Recovery Stat</span>
-                            <span class="fact-figure">123,443 Recovery</span>
-                        </div>
-                        <i class="fa-solid fa-gem icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        Most Recovered Item: Mobile Phone (72%)
-                    </span>
+                <div class="card-header">
+                    <i class="fa-solid fa-gem icon"></i>
+                    <strong>Recovery</strong>
+                </div>
+                <div class="card-body row">
+                    <p class="col-6"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
+                    <p class="col-6"><Strong style="font-size: 1rem;">💷: </Strong>2,345</p>
+                    <p class="col-6"><Strong style="font-size: 1rem;">💶: </Strong>2,345</p>
+                    <p class="col-6"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
                 </div>
             </div>
         </div>
         <!-- Card 5 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
+        <div class="col-sm-6 col-md-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Status Stat</span>
-                            <span class="fact-figure">1000 petitions</span>
-                        </div>
-                        <i class="fa-solid fa-spinner icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        30% Conviction<br> 46% Under Investigation
-                    </span>
+                <div class="card-header">
+                    <i class="fa-solid fa-spinner icon"></i> <strong>Status</strong>
                 </div>
-            </div>
-        </div>
-        <!-- Card 6 -->
-        <div class="col-sm-6 col-md-4 col-xl-2">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title card--header">
-                        <div class="fact">
-                            <span class="title">Status Stat</span>
-                            <span class="fact-figure">1000 petitions</span>
-                        </div>
-                        <i class="fa-solid fa-spinner icon"></i>
-                    </div>
-                    <span class="card-text card-detail">
-                        30% Conviction<br> 46% Under Investigation
-                    </span>
+                <div class="card-body row">
+                    <p class="col-6"><Strong>UI:</Strong> 22</p>
+                    <p class="col-6"><Strong>Legal:</Strong> 22</p>
+                    <p class="col-6"><Strong>Court:</Strong> 22</p>
+                    <p class="col-6"><Strong>Convicted:</Strong> 22</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Flash Message -->
+<div class="row mt-2 px-2">
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+<!-- Crime Investigation Overview -->
 <div class="row mx-2">
     <div class="tabular--wrapper">
         <h3 class="main--title">Crime Investigation Overview</h3>
@@ -116,29 +83,81 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="row">&nbsp;</th>
-                        {% for obj in dashboard_result_list[0].keys() %}
-                        <th scope="col">{{ obj }}</th>
+                        {% for k in dashboard_result_list[0].keys() %}
+                        {% if k != 'id' %}
+                        <th scope="col">{{ k }}</th>
+                        {% endif %}
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for obj in dashboard_result_list %}
-                    <tr>
+
+                    <tr data-petition-id="{{ obj['id'] }}">
                         <th scope="row">{{ loop.index }}</th>
                         {% for k, v in obj.items() %}
+                        {% if k != 'id' %}
                         <td>{{ obj.get(k, '') }}</td>
+                        {% endif %}
                         {% endfor %}
                     </tr>
+
                     {% endfor %}
                 </tbody>
-                <tfoot class="table-dark ps-3">
+                <!-- <tfoot class="table-dark ps-3">
                     <tr>
                         <td colspan="{{ dashboard_result_list[0]|length + 1 }}">Total Petitions: {{ sum_petition }}
                         </td>
                     </tr>
+                </tfoot> -->
+                <tfoot class="table-dark ps-3">
+                    <tr>
+                        <td colspan="{{  dashboard_result_list[0]|length-1}}">Total Petitions: {{ sum_petition }}
+                        </td>
+                        <td colspan="2"><button type="button" class="btn btn-dark" id="formSwitch"
+                                data-id="formContent">Add
+                                New
+                                Petition</button></td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
+    </div>
+</div>
+
+<!-- Petition Registration Form -->
+<div class="row mx-2">
+    <div class="form--content hidden" id="formContent">
+        <form action="{{ url_for('app_views.dashboard') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 form--title">Register Petition</legend>
+
+                <!-- Form fields for Petition -->
+                {% for field in form %}
+                {% if field.type != 'CSRF Token' and field.type != 'SubmitField' %}
+                <div class="form-group">
+                    {{ field.label(class="form-control-label") }}
+                    {% if field.errors %}
+                    {{ field(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in field.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ field(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ form.reset(class="btn btn-outline-danger") }}
+                </div>
+            </fieldset>
+        </form>
     </div>
 </div>
 {% endblock content %}

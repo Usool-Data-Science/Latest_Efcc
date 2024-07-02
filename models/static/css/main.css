@@ -125,8 +125,9 @@ body::before {
 
 .header--title {
     color: var(--efcc_b);
-    font-size: 3rem;
-    font-weight: 900;
+    font-size: 2rem;
+    padding-top: 15px;
+    font-weight: 600;
 }
 
 .header--wrapper img {
@@ -277,11 +278,6 @@ body::before {
     padding: 2rem;
 }
 
-/* .table-container {
-    width: 100%;
-    overflow-x: scroll;
-} */
-
 thead {
     background-color: var(--efcc_r);
     color: var(--efcc_w);
@@ -294,6 +290,10 @@ th {
 
 tbody {
     background-color: var(--efcc_w);
+}
+
+table tbody tr {
+    cursor: pointer;
 }
 
 td {

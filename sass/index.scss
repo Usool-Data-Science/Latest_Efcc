@@ -2,7 +2,8 @@
 
 // Check the variables you want to update and declare it before the import
 
-$primary: rgba(21, 128, 0, 0.774);
+// $primary: rgba(21, 128, 0, 0.774);
+$primary: #7F0707;
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
@@ -99,9 +100,40 @@ footer {
     width: fit-content;
 }
 
-// thead {
-//     background-color: map-get($custom-theme-color, "dark-warning");
-//     color: map-get($custom-theme-color, "light-font");
-// }
+.login-image {
+    width: 600px;
+    height: auto;
+}
+
+// PERSONAL PETITION PAGE
+.special-i {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.personal-title {
+    background-color: #7F0707;
+    color: #fff;
+    border-radius: 10px;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 991px) {
+    .show-xl {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .show-xl {
+        display: block;
+        /* or your desired display property */
+    }
+}
 
 @import '../node_modules/bootstrap/scss/bootstrap';

@@ -88,9 +88,9 @@ db.session.commit()
 
 # Create the first instance of Staff
 staff1 = Staff(
-    first_name="Adeshina",
-    last_name="Ibrahim",
-    email="adeshinaibrahim10@gmail.com",
+    first_name="New",
+    last_name="Staff",
+    email="newadeshinaibrahim10@gmail.com",
     password=pasw_hs,
     age=30,
     gender="Male",
@@ -100,9 +100,9 @@ staff1 = Staff(
 
 # Create the second instance of Staff
 staff2 = Staff(
-    first_name="Oluwatobi",
+    first_name="Another",
     last_name="Olatunde",
-    email="oluwatobiolatunde@example.com",
+    email="newoluwatobiolatunde@example.com",
     password=pasw_hs,
     age=28,
     gender="Female",

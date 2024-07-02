@@ -52,11 +52,13 @@ def get_petition(petition_id):
     """ Retrieves a specific Petition """
     from models.petition import Petition
     from models.complainant import Complainant
+    from models.suspect import Suspect
+    from models.recovery import Recovery
 
     petition = Petition.query.get(petition_id)
     if not petition:
         abort(404)
-    return jsonify(petition.to_dict())
+    return render_template('personal.html', petition=petition.to_dict())
 
 
 @app_views.route('/petitions/<petition_id>', methods=['DELETE'], strict_slashes=False)

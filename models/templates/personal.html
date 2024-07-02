@@ -1,4 +1,57 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>THIS IS PERSONAL</h1>
+<!-- <h1>THIS IS PERSONAL</h1>
+{% for k,v in petition.items() %}
+<p>{{ k }}: <small>{{ v }}</small></p>
+{% endfor %} -->
+
+<!-- Title Bar -->
+<div class="row mx-2 personal-title">
+    <span>Petition profile for casefile number: {{ petition['casefile_no'] }}</span>
+</div>
+
+<!-- Modification Icons -->
+<div class="row pt-2 gap-y-3 px-2">
+    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <div class="card">
+            <h5 class="card-header bg-primary text-light-font">Complainant</h5>
+            <div class="card-body">
+                <div class="special-i"><i class="fa-solid fa-user-tie"></i></div>
+                <a href="#" class="btn btn-primary">Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <div class="card">
+            <h5 class="card-header bg-primary text-light-font">Suspect</h5>
+            <div class="card-body">
+                <div class="special-i"><i class="fa-solid fa-people-robbery"></i></div>
+                <a href="#" class="btn btn-primary">Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <div class="card">
+            <h5 class="card-header bg-primary text-light-font">Recovery</h5>
+            <div class="card-body">
+                <div class="special-i"><i class="fa-solid fa-gem"></i></div>
+                <a href="#" class="btn btn-primary">Update</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <div class="card">
+            <h5 class="card-header bg-primary text-light-font">Status</h5>
+            <div class="card-body">
+                <div class="special-i"><i class="fa-solid fa-spinner"></i></div>
+                <a href="#" class="btn btn-primary">Update</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modification Section -->
+<div class="row">
+
+</div>
 {% endblock %}

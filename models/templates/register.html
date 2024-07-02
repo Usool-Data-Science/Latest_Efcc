@@ -58,6 +58,12 @@
     <!-- Main Content -->
     <main role="main" class="curve-edge flex-grow-1 p-5 bg-dark-bg text-light-font">
         <div>
+            <figure class="show-xl">
+                <img class="figure-img img-fluid rounded login-image" src="../static/dashboard.jpg" alt="efcc">
+                <figcaption>Efcc Staff On Duty</figcaption>
+            </figure>
+        </div>
+        <div>
             <!-- Flash Message -->
             <div class="col-md-8 px-5">
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -70,14 +76,13 @@
                 {% endif %}
                 {% endwith %}
             </div>
-
             <!-- Registration Form -->
             <form method="POST" action="{{ url_for('app_views.register') }}">
                 {{ form.hidden_tag() }}
-                <fieldset class="form-group">
+                <fieldset class="row gy-2 gx-3 align-items-center form-group">
                     <legend class="border-bottom mt-4">Sign Up</legend>
                     <!-- First Name Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.first_name.label(class="form-control-label") }}
                         {% if form.first_name.errors %}
                         {{ form.first_name(class="form-control form-control-lg is-invalid") }}
@@ -91,7 +96,7 @@
                         {% endif %}
                     </div>
                     <!-- Last Name Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.last_name.label(class="form-control-label") }}
                         {% if form.last_name.errors %}
                         {{ form.last_name(class="form-control form-control-lg is-invalid") }}
@@ -105,7 +110,7 @@
                         {% endif %}
                     </div>
                     <!-- Email Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.email.label(class="form-control-label") }}
                         {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -119,7 +124,7 @@
                         {% endif %}
                     </div>
                     <!-- Password Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.password.label(class="form-control-label") }}
                         {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -133,7 +138,7 @@
                         {% endif %}
                     </div>
                     <!-- Confirm Password Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.confirm_password.label(class="form-control-label") }}
                         {% if form.confirm_password.errors %}
                         {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
@@ -147,7 +152,7 @@
                         {% endif %}
                     </div>
                     <!-- Age Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.age.label(class="form-control-label") }}
                         {% if form.age.errors %}
                         {{ form.age(class="form-control form-control-lg is-invalid") }}
@@ -161,7 +166,7 @@
                         {% endif %}
                     </div>
                     <!-- Gender Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.gender.label(class="form-control-label") }}
                         {% if form.gender.errors %}
                         {{ form.gender(class="form-control form-control-lg is-invalid") }}
@@ -176,7 +181,7 @@
                     </div>
 
                     <!-- State Of Origin Field -->
-                    <div class="form-group mt-4">
+                    <div class="col-md-4 form-group mt-4">
                         {{ form.state_of_origin.label(class="form-control-label") }}
                         {% if form.state_of_origin.errors %}
                         {{ form.state_of_origin(class="form-control form-control-lg is-invalid") }}
