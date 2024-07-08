@@ -1,0 +1,18 @@
+RESOURCE TERMS
+V = video Resources
+B = Blog
+S = Stackoverflow
+A = AI Code Assistant
+R = Code Repo
+D = Documentation
+
+DASHBOARD
+V - https://www.youtube.com/watch?v=CgCPP2KO5ds (Dashboard)
+B - https://bennettfeely.com/clippy/ (CSS cliparts maker)
+
+REGISTRATION FORM
+B - https://fingerprint-module-r305-python-and-mysql.readthedocs.io/en/latest/chapter03.html#upload-to-database (Handling finger prints in python)
+
+FLASK-ADMIN
+V - https://www.youtube.com/watch?v=G1FBSYJ45Ww
+D - https://flask-admin.readthedocs.io/en/latest/introduction/#getting-started

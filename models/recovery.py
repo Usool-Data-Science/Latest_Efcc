@@ -100,7 +100,7 @@ class Automobile(BaseModel, db.Model):
     plate_number = db.Column(db.String(10))
     chasis_number = db.Column(db.String(50))
     colar = db.Column(db.String(20))
-    other_info = db.Column(db.String(128))
+    other_info = db.Column(db.String(1128))
     status = db.Column(db.Enum(*recovery_statuses), nullable=False)
     recovery_id = db.Column(db.Integer, db.ForeignKey('recoveries.id'), nullable=False)
 

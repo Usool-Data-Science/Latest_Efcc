@@ -33,20 +33,21 @@ def post_fingerprints():
     """
     from models import db
     from models.fingerprint import FingerPrint
+    from models.suspect import Suspect
 
     form = FingerPrintForm()
     if form.validate_on_submit():
-        print("FORM IS AVAILABLE")
-        finger_print = form.finger_print.data
         instance = FingerPrint(finger_print=form.finger_print.data,
                                mugshot=form.mugshot.data,
                                suspect_id=form.suspect_id.data)
-        db.session.add(instance)
+        
+        susp = db.session.get(Suspect, form.suspect_id.data)
+        susp.finger_prints.append(instance)
         db.session.commit()
         flash(f'A new FingerPrint has been created', 'success')
     else:
         flash('There is an error creating the FingerPrint', 'danger')
-    return redirect(url_for('app_views.get_fingerprints'))
+    return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
 
 @app_views.route('/fingerprints/<fingerprint_id>', methods=['GET'], strict_slashes=False)
 def get_fingerprint(fingerprint_id):

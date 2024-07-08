@@ -202,6 +202,21 @@
                 {% endif %}
             </div>
 
+			<!-- Petition_id Field -->
+            <div class="form-group">
+                {{ form.petition_id.label(class="form-control-label") }}
+                {% if form.petition_id.errors %}
+                {{ form.petition_id(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.petition_id.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.petition_id(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
             <!-- Include additional fields as needed -->
 
             <div class="form-group">

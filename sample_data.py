@@ -24,46 +24,46 @@ suspect1 = Suspect(name="John Doe", height=180, skin_color="Brown",
                     place_of_birth="City 1", gender="Male",
                    religion="Christianity", occupation="Occupation 1",
                     phone_no="123456789", parent_name="Parent 1",
-                    offence="Theft")
+                    offence="Theft", petition_id=1)
 
 
 suspect2 = Suspect(name="Jane Smith", height=170, skin_color="Fair", passport="passport2", mugshot="mugshot2",
-                   address="Address 2", nationality="Nigerian", place_of_birth="City 2", gender="Female", religion="Islam", occupation="Occupation 2", phone_no="987654321", parent_name="Parent 2", offence="Forgery")
+                   address="Address 2", nationality="Nigerian", place_of_birth="City 2", gender="Female", religion="Islam", occupation="Occupation 2", phone_no="987654321", parent_name="Parent 2", offence="Forgery", petition_id=2)
 
 
 suspect3 = Suspect(name="Michael Johnson", height=175, skin_color="Dark Brown", passport="passport3", mugshot="mugshot3",
-                   address="Address 3", nationality="Nigerian", place_of_birth="City 3", gender="Male", religion="Traditional", occupation="Occupation 3", phone_no="456123789", parent_name="Parent 3", offence="Bribery")
+                   address="Address 3", nationality="Nigerian", place_of_birth="City 3", gender="Male", religion="Traditional", occupation="Occupation 3", phone_no="456123789", parent_name="Parent 3", offence="Bribery", petition_id=3)
 
 
 suspect4 = Suspect(name="Alice Brown", height=160, skin_color="Light Brown", passport="passport4", mugshot="mugshot4",
-                   address="Address 4", nationality="Nigerian", place_of_birth="City 4", gender="Female", religion="Christianity", occupation="Occupation 4", phone_no="789456123", parent_name="Parent 4", offence="Stealing")
+                   address="Address 4", nationality="Nigerian", place_of_birth="City 4", gender="Female", religion="Christianity", occupation="Occupation 4", phone_no="789456123", parent_name="Parent 4", offence="Stealing", petition_id=4)
 
 
 suspect5 = Suspect(name="David Wilson", height=185, skin_color="Caramel", passport="passport5", mugshot="mugshot5",
-                   address="Address 5", nationality="Nigerian", place_of_birth="City 5", gender="Male", religion="Others", occupation="Occupation 5", phone_no="321987654", parent_name="Parent 5", offence="Impersonation")
+                   address="Address 5", nationality="Nigerian", place_of_birth="City 5", gender="Male", religion="Others", occupation="Occupation 5", phone_no="321987654", parent_name="Parent 5", offence="Impersonation", petition_id=5)
 db.session.add_all([suspect1, suspect2, suspect3, suspect4, suspect5])
 db.session.commit() 
 
 
 # Create and save 5 instances of Complainant
 complainant1 = Complainant(name="John Smith", address="123 Main St", nationality="Nigerian", state="Lagos", gender="Male",
-                           age=35, occupation="Engineer", religion="Christianity", education="Tertiary", phone_no="1234567890")
+                           age=35, occupation="Engineer", religion="Christianity", education="Tertiary", phone_no="1234567890",petition_id=1)
 
 
 complainant2 = Complainant(name="Jane Doe", address="456 Oak St", nationality="Nigerian", state="Abuja", gender="Female",  
-                           age=28, occupation="Doctor", religion="Islam", education="Tertiary", phone_no="2345678901")
+                           age=28, occupation="Doctor", religion="Islam", education="Tertiary", phone_no="2345678901",petition_id=2)
 
 
 complainant3 = Complainant(name="Michael Johnson", address="789 Elm St", nationality="Nigerian", state="Rivers",
-                           gender="Male", age=42, occupation="Lawyer", religion="Traditional", education="Secondary", phone_no="3456789012")
+                           gender="Male", age=42, occupation="Lawyer", religion="Traditional", education="Secondary", phone_no="3456789012",petition_id=3)
 
 
 complainant4 = Complainant(name="Emily Brown", address="101 Pine St", nationality="Nigerian", state="Enugu", gender="Female", 
-                           age=30, occupation="Teacher", religion="Christianity", education="Primary", phone_no="4567890123")
+                           age=30, occupation="Teacher", religion="Christianity", education="Primary", phone_no="4567890123", petition_id=4)
 
 
 complainant5 = Complainant(name="David Wilson", address="222 Maple St", nationality="Nigerian", state="Ogun", gender="Male", 
-                           age=50, occupation="Businessman", religion="Others", education="Secondary", phone_no="5678901234")
+                           age=50, occupation="Businessman", religion="Others", education="Secondary", phone_no="5678901234",petition_id=5)
 db.session.add_all([complainant1, complainant2, complainant3, complainant4, complainant5])
 db.session.commit() 
 
@@ -552,8 +552,8 @@ staff1.petitions.extend([petition1, petition2, petition3])
 staff2.petitions.extend([petition4, petition5])
 
 # Link suspects and complainants to petition
-petition1.suspects.extend([suspect1, suspect2, suspect3])
-petition2.suspects.extend([suspect2, suspect5])
+petition1.suspects.append(suspect1)
+petition2.suspects.append(suspect2)
 petition3.suspects.append(suspect3)
 petition4.suspects.append(suspect4)
 petition5.suspects.append(suspect5)

@@ -1,58 +1,60 @@
 {% extends "layout.html" %}
 {% block content %}
+
+<!-- Crime Statistics -->
 <div class="row d-flex-column card--container mx-2">
     <h3 class="main--title">Crime Statistics</h3>
-    <div class="row">
+    <div class="row text-start">
         <!-- Card 1 -->
-        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
                     <i class="fa-solid fa-scale-balanced icon"></i>
                     <strong>Petition</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-12"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
+                    <p class="col-12 details"><Strong>Total: </Strong>{{ sum_petition }}</p>
                 </div>
             </div>
         </div>
         <!-- Card 3 -->
-        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
                     <i class="fa-solid fa-people-robbery icon"></i>
                     <strong>Suspect</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
+                    <p class="col-12 details"><Strong>Total: </Strong>{{ sum_suspect }}</p>
                 </div>
             </div>
         </div>
         <!-- Card 4 -->
-        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
                     <i class="fa-solid fa-gem icon"></i>
                     <strong>Recovery</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-6"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
-                    <p class="col-6"><Strong style="font-size: 1rem;">💷: </Strong>2,345</p>
-                    <p class="col-6"><Strong style="font-size: 1rem;">💶: </Strong>2,345</p>
-                    <p class="col-6"><Strong style="font-size: 1rem;">💵: </Strong>2,345</p>
+                    <p class="col-6 details"><Strong>$: </Strong>2,345</p>
+                    <p class="col-6 details"><Strong>€: </Strong>8,027</p>
+                    <p class="col-6 details"><Strong>£: </Strong>9,115</p>
+                    <p class="col-6 details"><Strong>#: </Strong>6,703</p>
                 </div>
             </div>
         </div>
         <!-- Card 5 -->
-        <div class="col-sm-6 col-md-3">
+        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
                     <i class="fa-solid fa-spinner icon"></i> <strong>Status</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-6"><Strong>UI:</Strong> 22</p>
-                    <p class="col-6"><Strong>Legal:</Strong> 22</p>
-                    <p class="col-6"><Strong>Court:</Strong> 22</p>
-                    <p class="col-6"><Strong>Convicted:</Strong> 22</p>
+                    <p class="col-6 details"><Strong>UI:</Strong> 22</p>
+                    <p class="col-6 details"><Strong>Legal:</Strong> 22</p>
+                    <p class="col-6 details"><Strong>Court:</Strong> 22</p>
+                    <p class="col-6 details"><Strong>Convicted:</Strong> 22</p>
                 </div>
             </div>
         </div>
@@ -115,8 +117,7 @@
                         <td colspan="{{  dashboard_result_list[0]|length-1}}">Total Petitions: {{ sum_petition }}
                         </td>
                         <td colspan="2"><button type="button" class="btn btn-dark" id="formSwitch"
-                                data-id="formContent">Add
-                                New
+                                data-id="formContent"> New
                                 Petition</button></td>
                     </tr>
                 </tfoot>

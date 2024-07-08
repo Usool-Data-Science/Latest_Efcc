@@ -26,6 +26,7 @@ class Complainant(BaseModel, db.Model):
     religion = db.Column(db.Enum('Islam', 'Christianity', 'Traditional', 'Others'), nullable=False)
     education = db.Column(db.Enum('Primary', 'Secondary', 'Tertiary'), nullable=False)
     phone_no = db.Column(db.VARCHAR(15), nullable=False)
+    petition_id = db.Column(db.Integer, db.ForeignKey("petitions.id"), nullable=False)
     
     # Define relationships
     suspects = db.relationship("Suspect", secondary="complainant_suspect", viewonly=False, back_populates="complainants")

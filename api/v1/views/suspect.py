@@ -37,6 +37,7 @@ def post_suspects():
     Creates a Suspect
     """
     from models.suspect import Suspect
+    from models.petition import Petition
 
     form = SuspectForm()
     if form.validate_on_submit():
@@ -54,13 +55,15 @@ def post_suspects():
                            occupation=form.occupation.data,
                            phone_no=form.phone_no.data,
                            parent_name=form.parent_name.data,
-                           offence=form.offence.data)
-        models.db.session.add(instance)
+                           offence=form.offence.data,
+                           petition_id=form.petition_id.data)
+        pet = models.db.session.get(Petition, form.petition_id.data)
+        pet.suspects.append(instance)
         models.db.session.commit()
-        flash(f'A new Suspect "{name}" has been created', 'success')
+        flash(f'A new Suspect ("{name}") has been added', 'success')
     else:
         flash('There is an error creating the Suspect', 'danger')
-    return redirect(url_for('app_views.get_suspects'))
+    return redirect(url_for('app_views.get_petition', petition_id=form.petition_id.data))
 
 @app_views.route('/suspects/<suspect_id>', methods=['GET'], strict_slashes=False)
 def get_spec_suspect(suspect_id):

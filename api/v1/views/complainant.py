@@ -26,6 +26,7 @@ def post_complainants():
     Creates a Complainant
     """
     from models.complainant import Complainant
+    from models.petition import Petition
 
     form = ComplainantForm()
     if form.validate_on_submit():
@@ -40,13 +41,18 @@ def post_complainants():
                                occupation=form.occupation.data,
                                religion=form.religion.data,
                                education=form.education.data,
-                               phone_no=form.phone.data)
-        models.db.session.add(instance)
+                               phone_no=form.phone.data,
+                               petition_id=form.petition_id.data)
+        
+        pet = models.db.session.get(Petition, form.petition_id.data)
+        # models.db.session.add(instance)
+        pet.complainants.append(instance)
         models.db.session.commit()
         flash(f'A new Complainant {[name]} has been created', 'success')
     else:
         flash(f'There is an error creating Complainant {[name]}', 'danger')
-    return redirect(url_for('app_views.get_complainants'))
+    return redirect(url_for('app_views.get_petition', petition_id=form.petition_id.data))
+
 
 @app_views.route('/complainants/<complainant_id>', methods=['GET'], strict_slashes=False)
 def get_Complainant(complainant_id):

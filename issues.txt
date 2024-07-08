@@ -167,8 +167,14 @@ File "/usr/local/lib/python3.8/dist-packages/sqlalchemy/orm/relationships.py", l
   File "/usr/local/lib/python3.8/dist-packages/sqlalchemy/orm/base.py", line 562, in class_mapper
     raise exc.UnmappedClassError(class_)
 sqlalchemy.orm.exc.UnmappedClassError: Class 'sqlalchemy.sql.schema.Identity' is not mapped
-CAUSE: This occurs because of how we declared the 1-many relationship.
-    fingerprints = db.relationship('FingerPrint', backref='suspects') #, cascade='all, delete-orphan')
+CAUSE: This occurs because of how we declared the 1-many relationship. The main problem is that it has created the association for one
+        one table but it cant find for another within the parent table module. For example below, the association should be in the parent
+        table module i.e. suspect.py and you should import the Identity object into the parent module
+        association_id_susp = db.Table("identity_suspect",
+            db.Column("idenitity_id", db.ForeignKey("identities.id"), primary_key=True, nullable=False),
+            db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
+        )
+    
 
 PROBLEM 18:
     flask jinja2 cant render my template even when it is in the templates folder that is in the same directory as my app

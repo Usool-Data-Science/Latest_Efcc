@@ -11,7 +11,8 @@
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    <script src="{{ url_for('static', filename='scripts/petition.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='scripts/dashboard-petition.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='scripts/personal.js') }}" defer></script>
 
     <!-- CDN LINK -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,7 +35,7 @@
                     <span>Petition</span>
                 </a>
             </li>
-            <li class="list-group-item">
+            <!-- <li class="list-group-item">
                 <a href="/complainants">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Complainant</span>
@@ -46,12 +47,12 @@
                     <span>Suspect</span>
                 </a>
             </li>
-            <!-- <li class="list-group-item">
+            <li class="list-group-item">
                 <a href="/offences">
                     <i class="fa-solid fa-handcuffs"></i>
                     <span>Offence</span>
                 </a>
-            </li> -->
+            </li>
             <li class="list-group-item">
                 <a href="/recoveries">
                     <i class="fa-solid fa-gem"></i>
@@ -63,7 +64,7 @@
                     <i class="fa-solid fa-spinner"></i>
                     <span>Status</span>
                 </a>
-            </li>
+            </li> -->
             <li class="list-group-item logout">
                 <a href="{{ url_for('app_views.logout') }}">
                     <i class="bi bi-box-arrow-left"></i>
@@ -73,20 +74,12 @@
         </ul>
     </div>
     <div class="main--content">
+        {% block header %}
         <div class="row mx-2">
-            <div class="d-flex bd-highlight justify-content-between align-items-center header--wrapper">
-                <!-- <div class="header--title">
-                    {% if title %}
-                    {{ title }}
-                    {% else %}
-                    MENU
-                    {% endif %}
-                </div> -->
-
+            <div class="d-block d-lg-flex bd-highlight justify-content-between align-items-center header--wrapper">
                 <h2 class="header--title show-xl">
                     Welcome back, {{ current_user.first_name }}!
                 </h2>
-
                 <div class="flex-nowrap d-flex justify-content-center align-items-center">
                     <div class="search--box">
                         <i class="fa-solid fa-search"></i>
@@ -100,6 +93,7 @@
                 </div>
             </div>
         </div>
+        {% endblock header %}
         {% block content %}
         {% endblock content %}
     </div>

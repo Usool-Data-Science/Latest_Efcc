@@ -4,10 +4,22 @@
 from models import db
 from models.base_model import BaseModel
 from models.complainant import Complainant
+from models.identity import Identity
+from models.fingerprint import FingerPrint
 from models.variables import nigeria_skin_colors, religion_types, offence_types
 
 association_feud = db.Table("complainant_suspect",
     db.Column("complainant_id", db.ForeignKey("complainants.id"), primary_key=True, nullable=False),
+    db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
+)
+
+association_id_susp = db.Table("identity_suspect",
+    db.Column("idenitity_id", db.ForeignKey("identities.id"), primary_key=True, nullable=False),
+    db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
+)
+
+association_finger_susp = db.Table("finger_suspect",
+    db.Column("finger_print_id", db.ForeignKey("fingerprints.id"), primary_key=True, nullable=False),
     db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
 )
 
@@ -31,10 +43,11 @@ class Suspect(BaseModel, db.Model):
     phone_no = db.Column(db.String(15), nullable=False)
     parent_name = db.Column(db.String(50), nullable=False)
     offence = db.Column(db.Enum(*offence_types), nullable=False)
+    petition_id = db.Column(db.Integer, db.ForeignKey("petitions.id"), nullable=False)
 
     # Relationships
-    # identities = db.relationship('Identity', backref='suspects') #, cascade='all, delete-orphan')
-    # fingerprints = db.relationship('FingerPrint', backref='suspects') #, cascade='all, delete-orphan')
+    identities = db.relationship("Identity", secondary="identity_suspect", viewonly=False, back_populates="suspect")
+    finger_prints = db.relationship("FingerPrint", secondary="finger_suspect", viewonly=False, back_populates="suspect")
     recoveries = db.relationship("Recovery", cascade="all, delete-orphan", backref="suspects")
     petitions = db.relationship("Petition", secondary="petition_suspect", viewonly=False, back_populates="suspects")
     complainants = db.relationship("Complainant", secondary="complainant_suspect", viewonly=False, back_populates="suspects")

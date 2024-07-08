@@ -209,6 +209,7 @@ body::before {
 .main--title {
     padding-bottom: 10px;
     font-size: 2rem;
+    font-weight: 800;
 }
 
 .suspect--card {
@@ -233,6 +234,10 @@ body::before {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.details {
+    font-size: 1.2rem;
 }
 
 .fact {

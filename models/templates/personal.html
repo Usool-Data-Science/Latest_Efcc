@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
+
+{% block header %}
+<!-- Remove the header from this page -->
+{% endblock header %}
+
 {% block content %}
 <!-- <h1>THIS IS PERSONAL</h1>
 {% for k,v in petition.items() %}
@@ -12,46 +17,554 @@
 
 <!-- Modification Icons -->
 <div class="row pt-2 gap-y-3 px-2">
+    <!-- Complainant Icon -->
     <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <!-- Card Component -->
         <div class="card">
+            <!-- Card Title -->
             <h5 class="card-header bg-primary text-light-font">Complainant</h5>
-            <div class="card-body">
+            <!-- Card Body -->
+            <div class="card-body d-flex-column">
+                <!-- Object Icon -->
                 <div class="special-i"><i class="fa-solid fa-user-tie"></i></div>
-                <a href="#" class="btn btn-primary">Update</a>
+                <!-- Update and Progress Section -->
+                <div class="d-flex justify-content-between gap-3">
+                    <button data-id="complainantForm" type="button" class="btn btn-primary modifier"> <i
+                            class="fa-solid fa-pen"></i></button>
+                    <button data-id="complainantPreview" type="button" class="btn btn-primary previewer"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <div class="progress d-block flex-grow-1" style="height: 2.5rem;">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                            style="width: {{ comp_progress }}%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">{{ comp_progress }}%</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+    <!-- Suspect Icon -->
     <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <!-- Card Component -->
         <div class="card">
+            <!-- Card Title -->
             <h5 class="card-header bg-primary text-light-font">Suspect</h5>
-            <div class="card-body">
+            <!-- Card Body -->
+            <div class="card-body d-flex-column">
+                <!-- Object Icon -->
                 <div class="special-i"><i class="fa-solid fa-people-robbery"></i></div>
-                <a href="#" class="btn btn-primary">Update</a>
+                <!-- Update and Progress Section -->
+                <div class="d-flex justify-content-between gap-3">
+                    <button data-id="suspectForm" type="button" class="btn btn-primary modifier"> <i
+                            class="fa-solid fa-pen"></i></button>
+                    <button data-id="suspectPreview" type="button" class="btn btn-primary previewer"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <div class="progress d-lg-block flex-grow-1" style="height: 2.5rem;">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                            style="width: {{ susp_progress }}%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">{{ susp_progress }}%</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+    <!-- Recovery Icon -->
     <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <!-- Card Component -->
         <div class="card">
+            <!-- Card Title -->
             <h5 class="card-header bg-primary text-light-font">Recovery</h5>
-            <div class="card-body">
+            <!-- Card Body -->
+            <div class="card-body d-flex-column">
+                <!-- Object Icon -->
                 <div class="special-i"><i class="fa-solid fa-gem"></i></div>
-                <a href="#" class="btn btn-primary">Update</a>
+                <!-- Update and Progress Section -->
+                <div class="d-flex justify-content-between gap-3">
+                    <button data-id="recoveryForm" type="button" class="btn btn-primary modifier"> <i
+                            class="fa-solid fa-pen"></i></button>
+                    <button data-id="recoveryPreview" type="button" class="btn btn-primary previewer"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <div class="progress d-lg-block flex-grow-1" style="height: 2.5rem;">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                            style="width: 29%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100">29%</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+    <!-- Status Icon -->
     <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+        <!-- Card Component -->
         <div class="card">
+            <!-- Card Title -->
             <h5 class="card-header bg-primary text-light-font">Status</h5>
-            <div class="card-body">
+            <!-- Card Body -->
+            <div class="card-body d-flex-column">
+                <!-- Object Icon -->
                 <div class="special-i"><i class="fa-solid fa-spinner"></i></div>
-                <a href="#" class="btn btn-primary">Update</a>
+                <!-- Update and Progress Section -->
+                <div class="d-flex justify-content-between gap-3">
+                    <button data-id="statusForm" type="button" class="btn btn-primary modifier"> <i
+                            class="fa-solid fa-pen"></i></button>
+                    <button data-id="statusPreview" type="button" class="btn btn-primary previewer"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <div class="progress d-lg-block flex-grow-1" style="height: 2.5rem;">
+                        <div class="progress-bar progress-bar-striped" role="progressbar"
+                            style="width: 89%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100">89%</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modification Section -->
-<div class="row">
+<!-- Flash Message -->
+<div class="row mt-2 px-2">
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
 
+<!-- Registration Update Section -->
+<div class="row">
+    <!-- Complainant Form -->
+    <div id="complainantForm" class="row mx-2 d-none">
+        <!-- Complainant Registration Form -->
+        <form class="form--content" action="{{ url_for('app_views.post_complainants') }}" method="POST">
+            {{ compForm.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 form--title">Register Complainant</legend>
+                <!-- Name field -->
+                <div class="form-group">
+                    {{ compForm.name.label(class="form-control-label") }}
+                    {% if compForm.name.errors %}
+                    {{ compForm.name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Address Field -->
+                <div class="form-group">
+                    {{ compForm.address.label(class="form-control-label") }}
+                    {% if compForm.address.errors %}
+                    {{ compForm.address(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.address.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.address(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- Nationality field -->
+                <div class="form-group">
+                    {{ compForm.nationality.label(class="form-control-label") }}
+                    {% if compForm.nationality.errors %}
+                    {{ compForm.nationality(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.nationality.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.nationality(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- State Field -->
+                <div class="form-group">
+                    {{ compForm.state.label(class="form-control-label") }}
+                    {% if compForm.state.errors %}
+                    {{ compForm.state(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.state.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.state(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Gender Field -->
+                <div class="form-group">
+                    {{ compForm.gender.label(class="form-control-label") }}
+                    {% if compForm.gender.errors %}
+                    {{ compForm.gender(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.gender.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.gender(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Age Field -->
+                <div class="form-group">
+                    {{ compForm.age.label(class="form-control-label") }}
+                    {% if compForm.age.errors %}
+                    {{ compForm.age(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.age.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.age(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Occupation Field -->
+                <div class="form-group">
+                    {{ compForm.occupation.label(class="form-control-label") }}
+                    {% if compForm.occupation.errors %}
+                    {{ compForm.occupation(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.occupation.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.occupation(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Religion Field -->
+                <div class="form-group">
+                    {{ compForm.religion.label(class="form-control-label") }}
+                    {% if compForm.religion.errors %}
+                    {{ compForm.religion(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.religion.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.religion(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Education Field -->
+                <div class="form-group">
+                    {{ compForm.education.label(class="form-control-label") }}
+                    {% if compForm.education.errors %}
+                    {{ compForm.education(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.education.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.education(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Phone Field -->
+                <div class="form-group">
+                    {{ compForm.phone.label(class="form-control-label") }}
+                    {% if compForm.phone.errors %}
+                    {{ compForm.phone(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.phone.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.phone(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- Petition_id Field -->
+                <div class="form-group">
+                    {{ compForm.petition_id.label(class="form-control-label") }}
+                    {% if compForm.petition_id.errors %}
+                    {{ compForm.petition_id(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in compForm.petition_id.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ compForm.petition_id(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <!-- <button type="submit">Submit</button>
+            <button type="reset">Reset</button> -->
+            </fieldset>
+            <!-- Include additional fields as needed -->
+
+            <div class="form-group">
+                {{ compForm.submit(class="btn btn-outline-info") }}
+                {{ compForm.reset(class="btn btn-outline-danger") }}
+            </div>
+        </form>
+    </div>
+
+    <!-- Suspect Form -->
+    <div id="suspectForm" class="row mx-2 d-none">
+        <!-- Suspect Registration Form -->
+        <div class="form--content" id="suspectFormContent">
+            <form id="formContent" action="{{ url_for('app_views.post_suspects') }}" method="POST">
+                {{ suspectForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Suspect</legend>
+
+                    <!-- Form fields for Suspect -->
+                    {% for field in suspectForm %}
+                    {% if field.type != 'CSRFToken' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ suspectForm.submit(class="btn btn-outline-info") }}
+                        {{ suspectForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Suspect Identity Form -->
+        <div class="form--content" id="suspectIdContent">
+            <form id="formContent" action="{{ url_for('app_views.post_identities') }}" method="POST">
+                {{ idForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Identity</legend>
+
+                    <!-- Form fields for Identity -->
+                    <div class="form-group">
+                        {{ idForm.id_types.label(class="form-control-label") }}
+                        {% if idForm.id_types.errors %}
+                        {{ idForm.id_types(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in idForm.id_types.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ idForm.id_types(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ idForm.id_number.label(class="form-control-label") }}
+                        {% if idForm.id_number.errors %}
+                        {{ idForm.id_number(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in idForm.id_number.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ idForm.id_number(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ idForm.suspect_id.label(class="form-control-label") }}
+                        {% if idForm.suspect_id.errors %}
+                        {{ idForm.suspect_id(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in idForm.suspect_id.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ idForm.suspect_id(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ idForm.submit(class="btn btn-outline-info") }}
+                    {{ idForm.reset(class="btn btn-outline-danger") }}
+                </div>
+            </form>
+        </div>
+
+        <!-- Suspect's Finger Print Form -->
+        <div class="form--content" id="suspectIdContent">
+            <form id="formContent" action="{{ url_for('app_views.post_identities') }}" method="POST">
+                {{ idForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Identity</legend>
+
+                    <!-- Form fields for Identity -->
+                    <div class="form-group">
+                        {{ fingerForm.finger_print.label(class="form-control-label") }}
+                        {% if fingerForm.finger_print.errors %}
+                        {{ fingerForm.finger_print(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in fingerForm.finger_print.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ fingerForm.finger_print(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ fingerForm.mugshot.label(class="form-control-label") }}
+                        {% if fingerForm.mugshot.errors %}
+                        {{ fingerForm.mugshot(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in fingerForm.mugshot.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ fingerForm.mugshot(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ fingerForm.suspect_id.label(class="form-control-label") }}
+                        {% if fingerForm.suspect_id.errors %}
+                        {{ fingerForm.suspect_id(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in fingerForm.suspect_id.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ fingerForm.suspect_id(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ fingerForm.submit(class="btn btn-outline-info") }}
+                    {{ fingerForm.reset(class="btn btn-outline-danger") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Section -->
+<div class="row">
+    <div id="complainantPreview" class="row mx-2 d-none">
+        <!-- Complainant Preview -->
+        {% if complainants_dict %}
+        <div class="row text-start">
+            {% for complainant in complainants_dict %}
+            <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Complainant {{ loop.index }}</strong>
+                    </div>
+                    <div class="card-body row justify-content-between">
+                        <p class="col-auto details"><Strong>ID: </Strong> {{ complainant.get('id') }}</p>
+                        <p class="col-auto details"><Strong>Name: </Strong> {{ complainant.get('name') }}</p>
+                        <p class="col-auto details"><Strong>Address: </Strong> {{ complainant.get('address') }}</p>
+                        <p class="col-auto details"><Strong>Nationality: </Strong> {{ complainant.get('nationality') }}
+                        </p>
+                        <p class="col-auto details"><Strong>State: </Strong> {{ complainant.get('state') }}</p>
+                        <p class="col-auto details"><Strong>Gender: </Strong> {{ complainant.get('gender') }}</p>
+                        <p class="col-auto details"><Strong>Age: </Strong> {{ complainant.get('age') }}</p>
+                        <p class="col-auto details"><Strong>Occupation: </Strong> {{ complainant.get('occupation') }}
+                        </p>
+                        <p class="col-auto details"><Strong>Religion: </Strong> {{ complainant.get('religion') }}</p>
+                        <p class="col-auto details"><Strong>Education: </Strong> {{ complainant.get('education') }}</p>
+                        <p class="col-auto details"><Strong>Phone: </Strong> {{ complainant.get('phone_no') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="d-grid place-content-center">
+            <h1>NO COMPLAINANTS ATTACHED TO THIS PETITION YET!</h1>
+        </div>
+        {% endif %}
+    </div>
+    <div id="suspectPreview" class="row mx-2 d-none">
+        <!-- Suspect Preview -->
+        {% if suspects_dict %}
+        <div class="row text-start">
+            {% for suspect in suspects_dict %}
+            <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Suspect {{ loop.index }}</strong>
+                    </div>
+                    <div class="card-body row justify-content-between">
+                        <p class="col-auto details"><Strong>ID: </Strong> {{ suspect.get('id') }}</p>
+                        <p class="col-auto details"><Strong>Name: </Strong> {{ suspect.get('name') }}</p>
+                        <p class="col-auto details"><Strong>Gender: </Strong> {{ suspect.get('gender') }}</p>
+                        <p class="col-auto details"><Strong>Height: </Strong> {{ suspect.get('height') }}</p>
+                        <p class="col-auto details"><Strong>Skin Color: </Strong> {{ suspect.get('skin_color') }}
+                        </p>
+                        <p class="col-auto details"><Strong>Passport: </Strong> {{ suspect.get('passport') }}</p>
+                        <p class="col-auto details"><Strong>Mugshot: </Strong> {{ suspect.get('mugshot') }}</p>
+                        <p class="col-auto details"><Strong>Address: </Strong> {{ suspect.get('address') }}</p>
+                        <p class="col-auto details"><Strong>Occupation: </Strong> {{ suspect.get('occupation') }}
+                        </p>
+                        <p class="col-auto details"><Strong>Religion: </Strong> {{ suspect.get('religion') }}</p>
+                        <p class="col-auto details"><Strong>Nationality: </Strong> {{ suspect.get('nationality') }}</p>
+                        <p class="col-auto details"><Strong>Place Of Birth: </Strong> {{ suspect.get('place_of_birth')
+                            }}
+                        <p class="col-auto details"><Strong>Phone: </Strong> {{ suspect.get('phone_no') }}
+                        <p class="col-auto details"><Strong>Parent Name: </Strong> {{ suspect.get('parent_name') }}
+                        <p class="col-auto details"><Strong>Offence: </Strong> {{ suspect.get('offence') }}</p>
+
+                        {% if suspect.get('finger_prints') %}
+                        <p class="col-auto details">
+                            <Strong>Finger Print: </Strong> {{ suspect.get('finger_prints')[0].finger_print }}
+                        </p>
+                        {% endif %}
+                        {% if suspect.get('identities') %}
+                        <p class="col-auto details">
+                            <Strong>Identity: </Strong> {{ suspect.get('identities')[0].id_number }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="d-grid place-content-center">
+            <h1>NO SUSPECTS ATTACHED TO THIS PETITION YET!</h1>
+        </div>
+        {% endif %}
+    </div>
+    <div id="recoveryPreview" class="row mx-2 d-none">
+        <!-- Complainant Registration Form -->
+        <h1>RECOVERY PREVIEW</h1>
+    </div>
+    <div id="statusPreview" class="row mx-2 d-none">
+        <!-- Complainant Registration Form -->
+        <h1>STATUS PREVIEW</h1>
+    </div>
 </div>
 {% endblock %}

@@ -15,6 +15,7 @@ class Identity(BaseModel, db.Model):
 
     # Relationships
     suspect_id = db.Column(db.Integer, db.ForeignKey('suspects.id'), nullable=False)
+    suspect = db.relationship("Suspect", secondary="identity_suspect", viewonly=False, back_populates="identities")
 
     def __repr__(self):
         return f"<Identity(id={self.id}, id_type='{self.id_types}', id_number={self.id_number}, suspect_id={self.suspect_id})>"

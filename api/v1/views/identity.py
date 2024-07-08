@@ -32,6 +32,7 @@ def post_identities():
     """
     from models import db
     from models.identity import Identity
+    from models.suspect import Suspect
 
     form = IdentityForm()
     if form.validate_on_submit():
@@ -39,12 +40,13 @@ def post_identities():
         instance = Identity(id_types=form.id_types.data,
                             id_number=form.id_number.data,
                             suspect_id=form.suspect_id.data)
-        db.session.add(instance)
+        susp = db.session.get(Suspect, form.suspect_id.data)
+        susp.identities.append(instance)
         db.session.commit()
         flash(f'A new Identity has been created', 'success')
     else:
         flash('There is an error creating the Identity', 'danger')
-    return redirect(url_for('app_views.get_identities'))
+    return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
 
 @app_views.route('/identities/<identity_id>', methods=['GET'], strict_slashes=False)
 def get_identity(identity_id):
