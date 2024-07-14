@@ -65,6 +65,45 @@
                     <span>Status</span>
                 </a>
             </li> -->
+
+            {% if current_user.admin %}
+            <li class="list-group-item admin-dash">
+                <a href="{{ url_for('app_views.admin') }}">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <span>Admin?</span>
+                </a>
+            </li>
+            {% endif %}
+            <!-- <li class="list-group-item">
+                <a href="/complainants">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Complainant</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/suspects">
+                    <i class="fa-solid fa-people-robbery"></i>
+                    <span>Suspect</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/offences">
+                    <i class="fa-solid fa-handcuffs"></i>
+                    <span>Offence</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/recoveries">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>Recovery</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/statuses">
+                    <i class="fa-solid fa-spinner"></i>
+                    <span>Status</span>
+                </a>
+            </li> -->
             <li class="list-group-item logout">
                 <a href="{{ url_for('app_views.logout') }}">
                     <i class="bi bi-box-arrow-left"></i>
@@ -81,19 +120,29 @@
                     Welcome back, {{ current_user.first_name }}!
                 </h2>
                 <div class="flex-nowrap d-flex justify-content-center align-items-center">
-                    <div class="search--box">
-                        <i class="fa-solid fa-search"></i>
-                        <input type="text" placeholder="Search Case File No">
-                    </div>
                     {% if gender == "Male" %}
                     <img src="{{ url_for('static', filename='img/body/male_silhouette2.png') }}" alt="Staff Image">
                     {% else %}
                     <img src="{{ url_for('static', filename='img/body/female_silhouette.png') }}" alt="Staff Image">
                     {% endif %}
+                    <!-- <div class="search--box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search Case File No">
+                    </div> -->
+                    <form class="d-flex search--box" action="{{ url_for('app_views.dashboard') }}" method="POST">
+                        {{ searchForm.hidden_tag() }}
+                        <!-- <input class="me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                        <!-- <button class="btn" type="submit"><i class="fa-solid fa-search"></i></button> -->
+                        {{ searchForm.feature(class="form-control d-inline-block me-2") }}
+                        {{ searchForm.value(class="form-control me-2") }}
+                        <button class="btn" type="submit"><i class="fa-solid fa-search"></i></button>
+                        <!-- {{ searchForm.submit(class="btn btn-dark") }} -->
+                    </form>
                 </div>
             </div>
         </div>
         {% endblock header %}
+
         {% block content %}
         {% endblock content %}
     </div>

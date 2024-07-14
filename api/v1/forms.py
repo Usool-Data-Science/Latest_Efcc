@@ -10,14 +10,13 @@ from wtforms.validators import (DataRequired, Email, EqualTo,
 
 from models.variables import (id_cards, nigeria_skin_colors, religion_types,
                               offence_types, nigeria_states, recovery_statuses,
-                              top_currencies)
+                              top_currencies, petition_keys, petition_status)
 
 class ComplainantForm(FlaskForm):
     "A blueprint for the Complainant form that will be sent to frontend"
     name = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=30)])
     address = StringField('Address', validators=[DataRequired(), Length(max=50)])
     nationality = StringField('Nationality', validators=[DataRequired(), Length(max=50)])
-    # state = StringField('State', validators=[DataRequired(), Length(max=50)])
     state = SelectField('State', choices=[(val, val) for val in nigeria_states], validators=[DataRequired()])
     gender = SelectField('Gender', choices=[('Male', 'Male'),('Female', 'Female')])
     age = IntegerField('Age', validators=[DataRequired(), NumberRange(min=1, message='Age must be positive')])
@@ -37,7 +36,7 @@ class PetitionForm(FlaskForm):
     date_received = DateTimeField('Date Received', format='%Y-%m-%d %H:%M:%S', default=datetime.now(), validators=[DataRequired()])
     date_assigned = DateTimeField('Date Assigned', format='%Y-%m-%d %H:%M:%S', default=datetime.now(), validators=[DataRequired()])
     amount_involved = IntegerField('Amount Involved', validators=[NumberRange(min=0, message='Amount must be positive')])
-    status_signal = SelectField('Status Signal', choices=[('Convicted', 'Convicted'), ('In-Progress', 'In-Progress')])
+    status_signal = SelectField('Status Signal', choices=[(var, var) for var in petition_status])
     petition_source = SelectField('Petition Source', choices=[('Intelligence', 'Intelligence'), ('Regular-Complain', 'Regular-Complain')])
     
     submit = SubmitField('Submit')
@@ -92,6 +91,7 @@ class RegistrationForm(FlaskForm):
     age = IntegerField('Age', validators=[DataRequired(), NumberRange(min=1, message='Age must be positive')])
     gender = SelectField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], validators=[DataRequired()])
     state_of_origin = SelectField('State', choices=[(val, val) for val in nigeria_states], validators=[DataRequired()])
+    is_admin = BooleanField('Make this staff an admin?')
     submit = SubmitField('Sign Up')
     reset = SubmitField('Clear All', render_kw={"type": "reset"})
 
@@ -141,6 +141,15 @@ class BankForm(FlaskForm):
 class CashForm(FlaskForm):
     denomination = SelectField('Denomination', choices=[(val, val) for val in top_currencies], validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired(), NumberRange(min=1, message='Amount must be positive')])
+    monetary_id = IntegerField('Monetary ID', validators=[DataRequired(), NumberRange(min=1, message='Monetary ID must be positive')])
+    
+    submit = SubmitField('Submit')
+    reset = SubmitField('Reset', render_kw={"type": "reset"})
+
+class CryptoForm(FlaskForm):
+    asset_name = StringField('Asset Name', validators=[DataRequired()])
+    asset_size = StringField('Asset Size', validators=[DataRequired()])
+    asset_worth = IntegerField('Asset Worth', validators=[DataRequired(), NumberRange(min=1, message='Asset Worth must be positive')])
     monetary_id = IntegerField('Monetary ID', validators=[DataRequired(), NumberRange(min=1, message='Monetary ID must be positive')])
     
     submit = SubmitField('Submit')
@@ -207,5 +216,11 @@ class LandedPropertyForm(FlaskForm):
     
     submit = SubmitField('Submit')
     reset = SubmitField('Reset', render_kw={"type": "reset"})
+
+class SearchForm(FlaskForm):
+    feature = SelectField('Feature', choices=[(key, key) for key in petition_keys], validators=[DataRequired()])
+    value = StringField('Value', validators=[DataRequired()])
+    
+    submit = SubmitField('Submit')
 
 

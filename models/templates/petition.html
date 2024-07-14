@@ -59,7 +59,7 @@
 
             <!-- Form fields for Petition -->
             {% for field in form %}
-            {% if field.type != 'CSRF Token' and field.type != 'SubmitField' %}
+            {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
             <div class="form-group">
                 {{ field.label(class="form-control-label") }}
                 {% if field.errors %}

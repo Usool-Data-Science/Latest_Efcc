@@ -94,7 +94,8 @@ staff1 = Staff(
     password=pasw_hs,
     age=30,
     gender="Male",
-    state="Lagos"
+    state="Lagos",
+    admin=True
 )
 
 
@@ -113,57 +114,57 @@ db.session.commit()
 
 # Create and save 5 instances of Petition
 petition1 = Petition( casefile_no="CASE1", cr_no="CR1", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=1000, status_signal='In-Progress', staff_id=staff1.id, petition_source='Regular-Complain')
+                     amount_involved=1000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
 
 
 petition2 = Petition(casefile_no="CASE2", cr_no="CR2", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=2000, status_signal='In-Progress', staff_id=staff1.id, petition_source='Regular-Complain')
+                     amount_involved=2000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
 
 
 petition3 = Petition(casefile_no="CASE3", cr_no="CR3", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=3000, status_signal='In-Progress', staff_id=staff1.id, petition_source='Regular-Complain')
+                     amount_involved=3000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
 
 
 petition4 = Petition(casefile_no="CASE4", cr_no="CR4", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=4000, status_signal='In-Progress', staff_id=staff2.id, petition_source='Regular-Complain')
+                     amount_involved=4000, status_signal='Legal', staff_id=staff2.id, petition_source='Regular-Complain')
 
 
 petition5 = Petition(casefile_no="CASE5", cr_no="CR5", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=5000, status_signal='In-Progress', staff_id=staff2.id, petition_source='Regular-Complain')
+                     amount_involved=5000, status_signal='Court', staff_id=staff2.id, petition_source='Regular-Complain')
 db.session.add_all([petition1, petition2, petition3, petition4, petition5])
 db.session.commit() 
 
 # Create instances of Recovery class
 recovery1 = Recovery(
-    petition_id="CASE1",
+    petition_id=1,
     suspect_id=suspect1.id
 )
 
 
 
 recovery2 = Recovery(
-    petition_id="CASE2",
+    petition_id=2,
     suspect_id=suspect2.id
 )
 
 
 
 recovery3 = Recovery(
-    petition_id="CASE3",
+    petition_id=3,
     suspect_id=suspect3.id
 )
 
 
 
 recovery4 = Recovery(
-    petition_id="CASE4",
+    petition_id=4,
     suspect_id=suspect4.id
 )
 
 
 
 recovery5 = Recovery(
-    petition_id="CASE5",
+    petition_id=5,
     suspect_id=suspect5.id
 )
 db.session.add_all([recovery1, recovery2, recovery3, recovery4, recovery5])
@@ -562,6 +563,11 @@ petition2.complainants.append(complainant2)
 petition3.complainants.append(complainant3)
 petition4.complainants.append(complainant4)
 petition5.complainants.append(complainant5)
+petition1.recoveries.append(recovery1)
+petition2.recoveries.append(recovery2)
+petition3.recoveries.append(recovery3)
+petition4.recoveries.append(recovery4)
+petition5.recoveries.append(recovery5)
 
 # Link petition and suspect to complainants
 complainant1.suspects.append(suspect1)
@@ -569,6 +575,7 @@ complainant2.suspects.append(suspect2)
 complainant3.suspects.append(suspect3)
 complainant4.suspects.append(suspect4)
 complainant5.suspects.append(suspect5)
+
 
 
 db.session.commit()

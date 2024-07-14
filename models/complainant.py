@@ -4,11 +4,11 @@ from models.variables import nigeria_states
 from models.base_model import BaseModel
 
 # Association table for petitions and complainants
-association_pet_comp = db.Table(
-    "petition_complainant",
-    db.Column("petition_id", db.ForeignKey("petitions.id"), primary_key=True, nullable=False),
-    db.Column("complainant_id", db.ForeignKey("complainants.id"), primary_key=True, nullable=False)
-)
+# association_pet_comp = db.Table(
+#     "petition_complainant",
+#     db.Column("petition_id", db.ForeignKey("petitions.id"), primary_key=True, nullable=False),
+#     db.Column("complainant_id", db.ForeignKey("complainants.id"), primary_key=True, nullable=False)
+# )
 
 class Complainant(BaseModel, db.Model):
     """A complainant object that defines each complainant's features"""
@@ -30,7 +30,7 @@ class Complainant(BaseModel, db.Model):
     
     # Define relationships
     suspects = db.relationship("Suspect", secondary="complainant_suspect", viewonly=False, back_populates="complainants")
-    petitions = db.relationship("Petition", secondary="petition_complainant", viewonly=False, back_populates="complainants")
+    petition = db.relationship("Petition", viewonly=False, back_populates="complainants")
 
     def __repr__(self):
         return f"<Complainant(id={self.id}, name={self.name})>"

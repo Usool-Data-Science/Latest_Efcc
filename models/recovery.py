@@ -10,14 +10,16 @@ class Recovery(BaseModel, db.Model):
     
     __tablename__ = 'recoveries'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    petition_id = db.Column(db.String(50), db.ForeignKey('petitions.casefile_no'), nullable=False)
+    petition_id = db.Column(db.Integer, db.ForeignKey('petitions.id'), nullable=False)
     suspect_id = db.Column(db.Integer, db.ForeignKey('suspects.id'), nullable=False)
     
     monetaries = db.relationship('Monetary', backref='recovery', cascade="all, delete-orphan")
-    automobilies = db.relationship('Automobile', backref='recovery', cascade="all, delete-orphan")
+    automobiles = db.relationship('Automobile', backref='recovery', cascade="all, delete-orphan")
     electronics = db.relationship('Electronic', backref='recovery', cascade="all, delete-orphan")
     jewelries = db.relationship('Jewelry', backref='recovery', cascade="all, delete-orphan")
     landedproperties = db.relationship('LandedProperty', backref='recovery', cascade="all, delete-orphan")
+
+    petition = db.relationship("Petition", viewonly=False, back_populates="recoveries")
 
     def __repr__(self):
         return f"<Recovery(id={self.id}, petition_id='{self.petition_id}')>"

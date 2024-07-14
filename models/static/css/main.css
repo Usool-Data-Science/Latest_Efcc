@@ -116,6 +116,13 @@ body::before {
     width: 100%;
 }
 
+.admin-dash {
+    position: absolute;
+    bottom: 5rem;
+    left: 0;
+    width: 100%;
+}
+
 .main--content {
     position: relative;
     background: var(--efcc_h);

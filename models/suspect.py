@@ -49,7 +49,7 @@ class Suspect(BaseModel, db.Model):
     identities = db.relationship("Identity", secondary="identity_suspect", viewonly=False, back_populates="suspect")
     finger_prints = db.relationship("FingerPrint", secondary="finger_suspect", viewonly=False, back_populates="suspect")
     recoveries = db.relationship("Recovery", cascade="all, delete-orphan", backref="suspects")
-    petitions = db.relationship("Petition", secondary="petition_suspect", viewonly=False, back_populates="suspects")
+    petition = db.relationship("Petition", viewonly=False, back_populates="suspects")
     complainants = db.relationship("Complainant", secondary="complainant_suspect", viewonly=False, back_populates="suspects")
 
     def __repr__(self):

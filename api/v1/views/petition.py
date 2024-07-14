@@ -12,8 +12,10 @@ def get_petitions():
     Retrieves the list of all Petition objects
     """
     from models.petition import Petition
+    from api.v1.forms import SearchForm
 
     form = PetitionForm()
+    searchForm = SearchForm()
     petitions = Petition.query.order_by(Petition.date_received.desc())
     petition_dicts = [petition.to_dict() for petition in petitions]
     return render_template("petition.html",
@@ -29,8 +31,8 @@ def post_petitions():
     from models.complainant import Complainant
 
     form = PetitionForm()
+    
     if form.validate_on_submit():
-        print("FORM IS AVAILABLE")
         title = form.title.data
         instance = Petition(
             title=form.title.data,
@@ -55,12 +57,29 @@ def get_petition(petition_id):
     # from models.recovery import Recovery
 
     from api.v1.forms import (ComplainantForm, SuspectForm,
-                              IdentityForm, FingerPrintForm)
+                              IdentityForm, FingerPrintForm,RecoveryForm,
+                              MonetaryForm, BankForm, CashForm, CryptoForm,
+                              AutomobileForm, ElectronicForm, PhoneForm,
+                              OtherForm, JewelryForm, LandedPropertyForm,
+                              LaptopForm)
 
     compForm = ComplainantForm()
     suspForm = SuspectForm()
     idForm = IdentityForm()
     fingerForm = FingerPrintForm()
+    recoveryForm = RecoveryForm()
+    monetaryForm = MonetaryForm()
+    bankForm = BankForm()
+    cashForm = CashForm()
+    cryptoForm = CryptoForm()
+    automobileForm = AutomobileForm()
+    otherForm = OtherForm()
+    jewelryForm = JewelryForm()
+    landedpropertyForm = LandedPropertyForm()
+    laptopForm = LaptopForm()
+    electronicForm = ElectronicForm()
+    phoneForm = PhoneForm()
+
 
     petition = Petition.query.get(petition_id)
 
@@ -69,15 +88,33 @@ def get_petition(petition_id):
 
     suspects_dict = [susp.to_dict() for susp in petition.suspects]
     susp_progress = calculate_completion_percentage(suspects_dict)
+    
+    recoveries_dict = [recov.to_dict() for recov in petition.recoveries]
+    recovery_progress = calculate_completion_percentage(recoveries_dict)
 
     if not petition:
         abort(404)
 
-    return render_template('personal.html', petition=petition.to_dict(),
-                           compForm=compForm, suspectForm=suspForm, idForm=idForm,
-                           fingerForm=fingerForm, complainants_dict=complainants_dict,
-                           comp_progress=int(comp_progress), suspects_dict=suspects_dict,
-                           susp_progress=int(susp_progress))
+    return render_template('personal.html',
+                           # Object Dictionaries
+                           petition=petition.to_dict(),
+                           complainants_dict=complainants_dict,
+                           recoveries_dict=recoveries_dict,
+                           suspects_dict=suspects_dict,
+                           #Progresses
+                           susp_progress=int(susp_progress), 
+                           comp_progress=int(comp_progress),
+                           recovery_progress=int(recovery_progress),
+                           # Forms
+                           compForm=compForm, suspectForm=suspForm,
+                           idForm=idForm, fingerForm=fingerForm,
+                           recoveryForm=recoveryForm, 
+                           monetaryForm=monetaryForm, bankForm=bankForm,
+                           cashForm=cashForm, cryptoForm=cryptoForm,
+                           automobileForm=automobileForm, otherForm=otherForm,
+                           jewelryForm=jewelryForm, laptopForm=laptopForm,
+                           landedPropertyForm=landedpropertyForm,
+                           electronicForm=electronicForm, phoneForm=phoneForm)
 
 @app_views.route('/petitions/<petition_id>', methods=['DELETE'], strict_slashes=False)
 def delete_petition(petition_id):
@@ -86,7 +123,6 @@ def delete_petition(petition_id):
     """
     from models.petition import Petition
     
-
     petition = Petition.query.get(petition_id)
     if not petition:
         abort(404)

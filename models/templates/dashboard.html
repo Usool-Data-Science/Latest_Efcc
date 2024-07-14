@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <!-- Card 3 -->
+        <!-- Card 2 -->
         <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <!-- Card 4 -->
+        <!-- Card 3 -->
         <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
@@ -37,24 +37,24 @@
                     <strong>Recovery</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-6 details"><Strong>$: </Strong>2,345</p>
-                    <p class="col-6 details"><Strong>€: </Strong>8,027</p>
-                    <p class="col-6 details"><Strong>£: </Strong>9,115</p>
-                    <p class="col-6 details"><Strong>#: </Strong>6,703</p>
+                    <p class="col-6 details"><Strong>$: </Strong>{{ sum_dollar }}</p>
+                    <p class="col-6 details"><Strong>€: </Strong>{{ sum_euro}}</p>
+                    <p class="col-6 details"><Strong>£: </Strong>{{ sum_pound }}</p>
+                    <p class="col-6 details"><Strong>#: </Strong>{{ sum_naira }}</p>
                 </div>
             </div>
         </div>
-        <!-- Card 5 -->
+        <!-- Card 4 -->
         <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
             <div class="card">
                 <div class="card-header">
                     <i class="fa-solid fa-spinner icon"></i> <strong>Status</strong>
                 </div>
                 <div class="card-body row">
-                    <p class="col-6 details"><Strong>UI:</Strong> 22</p>
-                    <p class="col-6 details"><Strong>Legal:</Strong> 22</p>
-                    <p class="col-6 details"><Strong>Court:</Strong> 22</p>
-                    <p class="col-6 details"><Strong>Convicted:</Strong> 22</p>
+                    <p class="col-6 details"><Strong>UI:</Strong> {{ sum_ui }} </p>
+                    <p class="col-6 details"><Strong>Legal:</Strong> {{ sum_legal }} </p>
+                    <p class="col-6 details"><Strong>Court:</Strong> {{ sum_court }} </p>
+                    <p class="col-6 details"><Strong>Convicted:</Strong> {{ sum_convicted }} </p>
                 </div>
             </div>
         </div>
@@ -130,13 +130,13 @@
 <div class="row mx-2">
     <div class="form--content hidden" id="formContent">
         <form action="{{ url_for('app_views.dashboard') }}" method="POST">
-            {{ form.hidden_tag() }}
+            {{ petForm.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4 form--title">Register Petition</legend>
 
                 <!-- Form fields for Petition -->
-                {% for field in form %}
-                {% if field.type != 'CSRF Token' and field.type != 'SubmitField' %}
+                {% for field in petForm %}
+                {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
                 <div class="form-group">
                     {{ field.label(class="form-control-label") }}
                     {% if field.errors %}
@@ -154,8 +154,8 @@
                 {% endfor %}
 
                 <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-info") }}
-                    {{ form.reset(class="btn btn-outline-danger") }}
+                    {{ petForm.submit(class="btn btn-outline-info") }}
+                    {{ petForm.reset(class="btn btn-outline-danger") }}
                 </div>
             </fieldset>
         </form>

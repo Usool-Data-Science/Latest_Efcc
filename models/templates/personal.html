@@ -18,7 +18,7 @@
 <!-- Modification Icons -->
 <div class="row pt-2 gap-y-3 px-2">
     <!-- Complainant Icon -->
-    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+    <div class="col-sm-6 col-md-4 my-3 text-center">
         <!-- Card Component -->
         <div class="card">
             <!-- Card Title -->
@@ -35,8 +35,9 @@
                             class="fa-solid fa-eye"></i></button>
                     <div class="progress d-block flex-grow-1" style="height: 2.5rem;">
                         <div class="progress-bar progress-bar-striped" role="progressbar"
-                            style="width: {{ comp_progress }}%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100">{{ comp_progress }}%</div>
+                            style="width: {{ comp_progress }}%; height: 2.5rem; font-size: 1.2rem;"
+                            aria-valuenow="{{ comp_progress }}" aria-valuemin="0" aria-valuemax="100">{{ comp_progress
+                            }}%</div>
                     </div>
                 </div>
 
@@ -44,7 +45,7 @@
         </div>
     </div>
     <!-- Suspect Icon -->
-    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+    <div class="col-sm-6 col-md-4 my-3 text-center">
         <!-- Card Component -->
         <div class="card">
             <!-- Card Title -->
@@ -70,7 +71,7 @@
         </div>
     </div>
     <!-- Recovery Icon -->
-    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
+    <div class="col-sm-6 col-md-4 my-3 text-center">
         <!-- Card Component -->
         <div class="card">
             <!-- Card Title -->
@@ -81,40 +82,14 @@
                 <div class="special-i"><i class="fa-solid fa-gem"></i></div>
                 <!-- Update and Progress Section -->
                 <div class="d-flex justify-content-between gap-3">
-                    <button data-id="recoveryForm" type="button" class="btn btn-primary modifier"> <i
+                    <button data-id="recovery_Form" type="button" class="btn btn-primary modifier"> <i
                             class="fa-solid fa-pen"></i></button>
                     <button data-id="recoveryPreview" type="button" class="btn btn-primary previewer"><i
                             class="fa-solid fa-eye"></i></button>
                     <div class="progress d-lg-block flex-grow-1" style="height: 2.5rem;">
                         <div class="progress-bar progress-bar-striped" role="progressbar"
-                            style="width: 29%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25" aria-valuemin="0"
-                            aria-valuemax="100">29%</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- Status Icon -->
-    <div class="col-sm-6 col-md-4 col-lg-3 my-3 text-center">
-        <!-- Card Component -->
-        <div class="card">
-            <!-- Card Title -->
-            <h5 class="card-header bg-primary text-light-font">Status</h5>
-            <!-- Card Body -->
-            <div class="card-body d-flex-column">
-                <!-- Object Icon -->
-                <div class="special-i"><i class="fa-solid fa-spinner"></i></div>
-                <!-- Update and Progress Section -->
-                <div class="d-flex justify-content-between gap-3">
-                    <button data-id="statusForm" type="button" class="btn btn-primary modifier"> <i
-                            class="fa-solid fa-pen"></i></button>
-                    <button data-id="statusPreview" type="button" class="btn btn-primary previewer"><i
-                            class="fa-solid fa-eye"></i></button>
-                    <div class="progress d-lg-block flex-grow-1" style="height: 2.5rem;">
-                        <div class="progress-bar progress-bar-striped" role="progressbar"
-                            style="width: 89%; height: 2.5rem; font-size: 1.2rem;" aria-valuenow="25" aria-valuemin="0"
-                            aria-valuemax="100">89%</div>
+                            style="width: {{ recovery_progress }}%; height: 2.5rem; font-size: 1.2rem;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ recovery_progress }}%</div>
                     </div>
                 </div>
 
@@ -139,9 +114,9 @@
 </div>
 
 <!-- Registration Update Section -->
-<div class="row">
+<div class="row ms-2">
     <!-- Complainant Form -->
-    <div id="complainantForm" class="row mx-2 d-none">
+    <div id="complainantForm" class="row  d-none">
         <!-- Complainant Registration Form -->
         <form class="form--content" action="{{ url_for('app_views.post_complainants') }}" method="POST">
             {{ compForm.hidden_tag() }}
@@ -322,7 +297,7 @@
     </div>
 
     <!-- Suspect Form -->
-    <div id="suspectForm" class="row mx-2 d-none">
+    <div id="suspectForm" class="row  d-none">
         <!-- Suspect Registration Form -->
         <div class="form--content" id="suspectFormContent">
             <form id="formContent" action="{{ url_for('app_views.post_suspects') }}" method="POST">
@@ -332,7 +307,7 @@
 
                     <!-- Form fields for Suspect -->
                     {% for field in suspectForm %}
-                    {% if field.type != 'CSRFToken' and field.type != 'SubmitField' %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
                     <div class="form-group">
                         {{ field.label(class="form-control-label") }}
                         {% if field.errors %}
@@ -467,16 +442,400 @@
             </form>
         </div>
     </div>
+
+    <!-- Recovery Form -->
+    <div id="recovery_Form" class="row  d-none">
+        <!-- Base Recovery Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_recoveries') }}" method="POST">
+                {{ recoveryForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Recovery</legend>
+
+                    <!-- Form fields for Recovery -->
+                    {% for field in recoveryForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ recoveryForm.submit(class="btn btn-outline-info") }}
+                        {{ recoveryForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Monetary Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_monetaries') }}" method="POST">
+                {{ monetaryForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Monetary</legend>
+
+                    <!-- Form fields for Monetary -->
+                    {% for field in monetaryForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ monetaryForm.submit(class="btn btn-outline-info") }}
+                        {{ monetaryForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Bank Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_banks') }}" method="POST">
+                {{ bankForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Bank</legend>
+
+                    <!-- Form fields for Bank -->
+                    {% for field in bankForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ bankForm.submit(class="btn btn-outline-info") }}
+                        {{ bankForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Cash Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_cashes') }}" method="POST">
+                {{ cashForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Cash</legend>
+
+                    <!-- Form fields for Cash -->
+                    {% for field in cashForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ cashForm.submit(class="btn btn-outline-info") }}
+                        {{ cashForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Crypto Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_cryptos') }}" method="POST">
+                {{ cryptoForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Crypto</legend>
+
+                    <!-- Form fields for Crypto -->
+                    {% for field in cryptoForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ cryptoForm.submit(class="btn btn-outline-info") }}
+                        {{ cryptoForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Automobile Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_automobiles') }}" method="POST">
+                {{ automobileForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Automobile</legend>
+
+                    <!-- Form fields for Automobile -->
+                    {% for field in automobileForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ automobileForm.submit(class="btn btn-outline-info") }}
+                        {{ automobileForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Electronic Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_electronics') }}" method="POST">
+                {{ electronicForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Electronic</legend>
+
+                    <!-- Form fields for Electronic -->
+                    {% for field in electronicForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ electronicForm.submit(class="btn btn-outline-info") }}
+                        {{ electronicForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Phone Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_phones') }}" method="POST">
+                {{ phoneForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Phone</legend>
+
+                    <!-- Form fields for Phone -->
+                    {% for field in phoneForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ phoneForm.submit(class="btn btn-outline-info") }}
+                        {{ phoneForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!-- Other Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_others') }}" method="POST">
+                {{ otherForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Other Recovery</legend>
+
+                    <!-- Form fields for Other Recovery -->
+                    {% for field in otherForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ otherForm.submit(class="btn btn-outline-info") }}
+                        {{ otherForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Jewelry Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_jewelries') }}" method="POST">
+                {{ jewelryForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Jewelry</legend>
+
+                    <!-- Form fields for Jewelry -->
+                    {% for field in jewelryForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ jewelryForm.submit(class="btn btn-outline-info") }}
+                        {{ jewelryForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+
+        <!-- Landed Properties Form -->
+        <div class="form--content">
+            <form id="formContent" action="{{ url_for('app_views.post_landedproperties') }}" method="POST">
+                {{ landedPropertyForm.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 form--title">Register Landed Property</legend>
+
+                    <!-- Form fields for Landed Property -->
+                    {% for field in landedPropertyForm %}
+                    {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                    <div class="form-group">
+                        {{ field.label(class="form-control-label") }}
+                        {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ field(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        {{ landedPropertyForm.submit(class="btn btn-outline-info") }}
+                        {{ landedPropertyForm.reset(class="btn btn-outline-danger") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- Preview Section -->
-<div class="row">
-    <div id="complainantPreview" class="row mx-2 d-none">
+<div class="row ms-2">
+    <!-- COMPLAINANT PREVIEW SECTION -->
+    <div id="complainantPreview" class="row d-none">
         <!-- Complainant Preview -->
         {% if complainants_dict %}
         <div class="row text-start">
             {% for complainant in complainants_dict %}
-            <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+            <div class="mb-3 col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-header">
                         <strong>Complainant {{ loop.index }}</strong>
@@ -507,12 +866,13 @@
         </div>
         {% endif %}
     </div>
-    <div id="suspectPreview" class="row mx-2 d-none">
+    <!-- SUSPECT PREVIEW SECTION -->
+    <div id="suspectPreview" class="row d-none">
         <!-- Suspect Preview -->
         {% if suspects_dict %}
         <div class="row text-start">
             {% for suspect in suspects_dict %}
-            <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+            <div class="mb-3 col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-header">
                         <strong>Suspect {{ loop.index }}</strong>
@@ -558,11 +918,148 @@
         </div>
         {% endif %}
     </div>
-    <div id="recoveryPreview" class="row mx-2 d-none">
-        <!-- Complainant Registration Form -->
-        <h1>RECOVERY PREVIEW</h1>
+    <!-- RECOVERY PREVIEW SECTION -->
+    <div id="recoveryPreview" class="row d-none">
+        {% if recoveries_dict %}
+
+        <div class="row text-start">
+            <h1>HERE ARE LIST OF THE RECOVERED ITEMS</h1>
+            {% for recov in recoveries_dict %}
+
+            <!-- MONETARY RECOVERIES -->
+            {% if recov.get("monetaries") %}
+            <h1>HERE ARE LIST OF THE MONETARY ITEMS</h1>
+            <div class="row text-start">
+                <!-- MONEY IN BANK -->
+                {% if recov.get('monetaries')[0].banks[0] %}
+                <div class="col-4">
+                    <h2>BANK SECTION</h2>
+                </div>
+                {% endif %}
+
+                <!-- MONEY IN CRYPTO -->
+                {% if recov.monetaries.cryptos %}
+                <div class="col-4">
+                    <h2>CRYPTO SECTION</h2>
+                </div>
+                {% endif %}
+
+                <!-- MONEY IN CASH -->
+                {% if recov.monetaries.cashes %}
+                <div class="col-4">
+                    <h2>CASH SECTION</h2>
+                </div>
+                {% endif %}
+
+
+            </div>
+            {% endif %}
+
+            <!-- ELECTRONIC RECOVERIES -->
+            {% if recov.get('electronics') %}
+            <div class="row text-start">
+                <!-- PHONE -->
+                {% if recov.electronics.phones %}
+                <div class="col-4">
+                    <h2>PHONE SECTION</h2>
+                </div>
+                {% endif %}
+
+                <!-- LAPTOPS -->
+                {% if recov.electronics.laptops %}
+                <div class="col-4">
+                    <h2>LAPTOP SECTION</h2>
+                </div>
+                {% endif %}
+
+                <!-- OTHERS -->
+                {% if recov.electronics.others %}
+                <div class="col-4">
+                    <h2>OTHERS SECTION</h2>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endif %}
+
+            <!-- AUTOMOBILE RECOVERIES -->
+            {% if recov.get('automobiles') %}
+            <div class="row text-start">
+                {% for auto in recov.automobiles %}
+                <div class="mb-3 col-sm-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Automobile {{ loop.index }}</strong>
+                        </div>
+                        <div class="card-body row justify-content-between">
+                            <p class="col-auto details"><Strong>ID: </Strong> {{ auto.get('id') }}</p>
+                            <p class="col-auto details"><Strong>Description: </Strong> {{ auto.get('description') }}</p>
+                            <p class="col-auto details"><Strong>Plate Num: </Strong> {{ auto.get('plate_number') }}</p>
+                            <p class="col-auto details"><Strong>Chasis Num: </Strong> {{ auto.get('chasis_number') }}
+                            </p>
+                            <p class="col-auto details"><Strong>Colar: </Strong> {{ auto.get('colar') }}</p>
+                            <p class="col-auto details"><Strong>Other Info: </Strong> {{ auto.get('other_info') }}</p>
+                            <p class="col-auto details"><Strong>Status: </Strong> {{ auto.get('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- JEWELRIES RECOVERY -->
+            {% if recov.get('jewelries') %}
+            <div class="row text-start">
+                {% for jewel in recov.get('jewelries') %}
+                <div class="mb-3 col-sm-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Automobile {{ loop.index }}</strong>
+                        </div>
+                        <div class="card-body row justify-content-between">
+                            <p class="col-auto details"><Strong>ID: </Strong> {{ jewel.get('id') }}</p>
+                            <p class="col-auto details"><Strong>Name: </Strong> {{ jewel.get('name') }}</p>
+                            <p class="col-auto details"><Strong>Description: </Strong> {{ jewel.get('description') }}
+                            </p>
+                            <p class="col-auto details"><Strong>Status: </Strong> {{ jewel.get('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- LANDED PROPERTIES RECOVERIES -->
+            {% if recov.get('landedproperties') %}
+            <div class="row text-start">
+                {% for land in recov.get('landedproperties') %}
+                <div class="mb-3 col-sm-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Automobile {{ loop.index }}</strong>
+                        </div>
+                        <div class="card-body row justify-content-between">
+                            <p class="col-auto details"><Strong>ID: </Strong> {{ land.get('id') }}</p>
+                            <p class="col-auto details"><Strong>Location: </Strong> {{ land.get('location') }}</p>
+                            <p class="col-auto details"><Strong>Size: </Strong> {{ land.get('size') }}</p>
+                            <p class="col-auto details"><Strong>Status: </Strong> {{ land.get('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <h1>NO RECOVERED ITEMS REGISTERED YET!</h1>
+        {% endif %}
+
     </div>
-    <div id="statusPreview" class="row mx-2 d-none">
+    <!-- STATUS PREVIEW SECTION -->
+    <div id="statusPreview" class="row d-none">
         <!-- Complainant Registration Form -->
         <h1>STATUS PREVIEW</h1>
     </div>

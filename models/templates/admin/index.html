@@ -18,11 +18,13 @@
 {{ super() }}
 {% endblock page_body %}
 
+<!-- Give the navbar-brand some padding -->
 {% block brand %}
 <div class="p-2"></div>
 {{ super() }}
 {% endblock brand %}
 
+<!-- Include the logout and dashboard button on the navbar -->
 {% block access_control %}
 <div class="btn-group me-2" role="group" aria-label="Basic mixed styles example">
     <a href="{{ url_for('app_views.logout') }}" class="btn btn-danger"><i class="bi bi-box-arrow-left"></i>&nbsp;
@@ -73,18 +75,6 @@
         </div>
     </div>
     <div class="col-sm-12 col-lg-6">
-        <!-- Flash Message -->
-        <div class="px-5">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-        </div>
         <!-- Registration Form -->
         <form method="POST" action="{{ url_for('app_views.admin') }}">
             {{ form.hidden_tag() }}
@@ -202,6 +192,12 @@
                     {% else %}
                     {{ form.state_of_origin(class="form-control form-control-lg") }}
                     {% endif %}
+                </div>
+
+                <!-- Admin Privileges -->
+                <div class="form-check form-check-inline ms-2">
+                    {{ form.is_admin(class="form-check-input") }}
+                    {{ form.is_admin.label(class="form-check-label") }}
                 </div>
             </fieldset>
             <div class="form-group mt-4">

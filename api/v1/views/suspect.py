@@ -60,7 +60,7 @@ def post_suspects():
         pet = models.db.session.get(Petition, form.petition_id.data)
         pet.suspects.append(instance)
         models.db.session.commit()
-        flash(f'A new Suspect ("{name}") has been added', 'success')
+        flash(f'A new Suspect ("Name: {name}, Id: {instance.id}") has been added', 'success')
     else:
         flash('There is an error creating the Suspect', 'danger')
     return redirect(url_for('app_views.get_petition', petition_id=form.petition_id.data))
