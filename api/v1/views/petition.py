@@ -97,6 +97,7 @@ def get_petition(petition_id):
 
     return render_template('personal.html',
                            # Object Dictionaries
+                           raw_petition=petition,
                            petition=petition.to_dict(),
                            complainants_dict=complainants_dict,
                            recoveries_dict=recoveries_dict,

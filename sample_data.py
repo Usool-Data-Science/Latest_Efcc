@@ -217,8 +217,6 @@ bank1 = Bank(
     monetary_id=monetary1.id
 )
 
-
-
 bank2 = Bank(
     bank_name='XYZ Bank',
     serial_number=654321,
@@ -226,7 +224,6 @@ bank2 = Bank(
     favour_off='Jane Smith',
     monetary_id=monetary2.id
 )
-
 
 
 bank3 = Bank(

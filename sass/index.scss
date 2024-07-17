@@ -122,6 +122,16 @@ footer {
     font-size: 2rem;
 }
 
+.personal-recovery>div:nth-of-type(even) {
+    background-color: #7F0707;
+    color: #fff;
+}
+
+// .personal-recovery:nth-child(even) {
+//     background-color: #7F0707;
+//     color: #fff;
+// }
+
 /* Large devices (desktops, 992px and up) */
 @media (max-width: 991px) {
     .show-xl {

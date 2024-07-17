@@ -44,9 +44,11 @@ def post_identities():
         susp.identities.append(instance)
         db.session.commit()
         flash(f'A new Identity has been created', 'success')
+        return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
     else:
         flash('There is an error creating the Identity', 'danger')
-    return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
+        return redirect(url_for('app_views.dashboard'))
+    
 
 @app_views.route('/identities/<identity_id>', methods=['GET'], strict_slashes=False)
 def get_identity(identity_id):

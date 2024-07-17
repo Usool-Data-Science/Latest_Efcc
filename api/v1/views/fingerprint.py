@@ -45,9 +45,10 @@ def post_fingerprints():
         susp.finger_prints.append(instance)
         db.session.commit()
         flash(f'A new FingerPrint has been created', 'success')
+        return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
     else:
         flash('There is an error creating the FingerPrint', 'danger')
-    return redirect(url_for('app_views.get_petition', petition_id=susp.petition_id))
+    return redirect(url_for('app_views.dashboard'))
 
 @app_views.route('/fingerprints/<fingerprint_id>', methods=['GET'], strict_slashes=False)
 def get_fingerprint(fingerprint_id):

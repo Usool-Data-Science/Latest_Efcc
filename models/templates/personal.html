@@ -389,10 +389,10 @@
 
         <!-- Suspect's Finger Print Form -->
         <div class="form--content" id="suspectIdContent">
-            <form id="formContent" action="{{ url_for('app_views.post_identities') }}" method="POST">
+            <form id="formContent" action="{{ url_for('app_views.post_fingerprints') }}" method="POST">
                 {{ idForm.hidden_tag() }}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4 form--title">Register Identity</legend>
+                    <legend class="border-bottom mb-4 form--title">Register Fingerprint</legend>
 
                     <!-- Form fields for Identity -->
                     <div class="form-group">
@@ -920,143 +920,244 @@
     </div>
     <!-- RECOVERY PREVIEW SECTION -->
     <div id="recoveryPreview" class="row d-none">
-        {% if recoveries_dict %}
-
-        <div class="row text-start">
-            <h1>HERE ARE LIST OF THE RECOVERED ITEMS</h1>
-            {% for recov in recoveries_dict %}
-
-            <!-- MONETARY RECOVERIES -->
-            {% if recov.get("monetaries") %}
-            <h1>HERE ARE LIST OF THE MONETARY ITEMS</h1>
-            <div class="row text-start">
-                <!-- MONEY IN BANK -->
-                {% if recov.get('monetaries')[0].banks[0] %}
-                <div class="col-4">
-                    <h2>BANK SECTION</h2>
-                </div>
-                {% endif %}
-
-                <!-- MONEY IN CRYPTO -->
-                {% if recov.monetaries.cryptos %}
-                <div class="col-4">
-                    <h2>CRYPTO SECTION</h2>
-                </div>
-                {% endif %}
-
-                <!-- MONEY IN CASH -->
-                {% if recov.monetaries.cashes %}
-                <div class="col-4">
-                    <h2>CASH SECTION</h2>
-                </div>
-                {% endif %}
-
-
-            </div>
-            {% endif %}
-
-            <!-- ELECTRONIC RECOVERIES -->
-            {% if recov.get('electronics') %}
-            <div class="row text-start">
-                <!-- PHONE -->
-                {% if recov.electronics.phones %}
-                <div class="col-4">
-                    <h2>PHONE SECTION</h2>
-                </div>
-                {% endif %}
-
-                <!-- LAPTOPS -->
-                {% if recov.electronics.laptops %}
-                <div class="col-4">
-                    <h2>LAPTOP SECTION</h2>
-                </div>
-                {% endif %}
-
-                <!-- OTHERS -->
-                {% if recov.electronics.others %}
-                <div class="col-4">
-                    <h2>OTHERS SECTION</h2>
-                </div>
-                {% endif %}
-
-            </div>
-            {% endif %}
-
-            <!-- AUTOMOBILE RECOVERIES -->
-            {% if recov.get('automobiles') %}
-            <div class="row text-start">
-                {% for auto in recov.automobiles %}
-                <div class="mb-3 col-sm-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Automobile {{ loop.index }}</strong>
+        <!-- Recovery Preview -->
+        {% if raw_petition.recoveries %}
+        <div class="row">
+            {% for recov in raw_petition.recoveries %}
+            <!-- Outer boundary for each recovery -->
+            {% if recov %}
+            <div class="mb-3">
+                <!-- Outer recovery card -->
+                <div class="card text-white bg-dark">
+                    <!-- Recovery Header -->
+                    <div class="card-header">
+                        <strong>Recovery {{ loop.index }}, ID: {{ recov.id }}, Suspect: {{recov.suspects.name}}
+                        </strong>
+                    </div>
+                    <!-- Recovery Body -->
+                    <div class="card-body">
+                        <!-- Inner boundery for Monetary recovery -->
+                        <div class="row mb-3">
+                            <!-- Inner monetary recovery card -->
+                            {% if recov.monetaries %}
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Monetary</strong>
+                                </div>
+                                <div class="card-body row justify-content-between">
+                                    <!-- MONETARY RECOVERIES -->
+                                    {% for money in recov.monetaries %}
+                                    <!-- Money in bank -->
+                                    <div class="col-auto mb-2">
+                                        {% for bank in money.banks %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Bank {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Bank Name: </Strong> {{
+                                                    bank.bank_name }}</p>
+                                                <p class="col-auto details"><Strong>Serial No: </Strong> {{
+                                                    bank.serial_number }}</p>
+                                                <p class="col-auto details"><Strong>Amount: </Strong> {{
+                                                    bank.amount }}</p>
+                                                <p class="col-auto details"><Strong>Favour off: </Strong> {{
+                                                    bank.favour_off }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Money in Cash -->
+                                    <div class="col-auto mb-2">
+                                        {% for cash in money.cashes %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Cash {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Denomination: </Strong> {{
+                                                    cash.denomination }}</p>
+                                                <p class="col-auto details"><Strong>Amount: </Strong> {{
+                                                    cash.amount }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Money in Crypto -->
+                                    <div class="col-auto mb-2">
+                                        {% for crypto in money.cyptos %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Crypto {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Asset Name: </Strong> {{
+                                                    bank.asset_name }}</p>
+                                                <p class="col-auto details"><Strong>Asset Size: </Strong> {{
+                                                    bank.asset_size }}</p>
+                                                <p class="col-auto details"><Strong>Asset Worth: </Strong> {{
+                                                    bank.asset_worth }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="card-body row justify-content-between">
-                            <p class="col-auto details"><Strong>ID: </Strong> {{ auto.get('id') }}</p>
-                            <p class="col-auto details"><Strong>Description: </Strong> {{ auto.get('description') }}</p>
-                            <p class="col-auto details"><Strong>Plate Num: </Strong> {{ auto.get('plate_number') }}</p>
-                            <p class="col-auto details"><Strong>Chasis Num: </Strong> {{ auto.get('chasis_number') }}
-                            </p>
-                            <p class="col-auto details"><Strong>Colar: </Strong> {{ auto.get('colar') }}</p>
-                            <p class="col-auto details"><Strong>Other Info: </Strong> {{ auto.get('other_info') }}</p>
-                            <p class="col-auto details"><Strong>Status: </Strong> {{ auto.get('status') }}</p>
+
+                        <!-- Inner boundery for Electronic recovery -->
+                        <div class="row mb-3">
+                            <!-- Inner monetary recovery card -->
+                            {% if recov.electronics %}
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Electronic</strong>
+                                </div>
+                                <div class="card-body row justify-content-between">
+                                    <!-- ELECTRONIC RECOVERIES -->
+                                    {% for electronic in recov.electronics %}
+                                    <!-- PHONE -->
+                                    <div class="col-auto mb-2">
+                                        {% for phone in electronic.phones %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Phone {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Phone Name: </Strong> {{
+                                                    phone.phone_name }}</p>
+                                                <p class="col-auto details"><Strong>Colour: </Strong> {{
+                                                    phone.color }}</p>
+                                                <p class="col-auto details"><Strong>Imei: </Strong> {{
+                                                    phone.imei }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Laptop -->
+                                    <div class="col-auto mb-2">
+                                        {% for laptop in electronic.laptops %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Laptop {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Serial No: </Strong> {{
+                                                    laptop.serial_no }}</p>
+                                                <p class="col-auto details"><Strong>Colour: </Strong> {{
+                                                    laptop.color }}</p>
+                                                <p class="col-auto details"><Strong>Name: </Strong> {{
+                                                    laptop.name }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- Others -->
+                                    <div class="col-auto mb-2">
+                                        {% for Other in electronic.others %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Other {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Description: </Strong> {{
+                                                    bank.description }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Inner boundery for Automobile, Jewelry and landed properties -->
+                        <div class="row mb-3 ">
+                            <!-- Automobile Recovery Card -->
+                            {% if recov.automobiles %}
+                            <div class="card col-4">
+                                <div class="card-header">
+                                    <strong>Automobile</strong>
+                                </div>
+                                <div class="card-body row justify-content-between">
+                                    <div class="col-auto mb-2">
+                                        {% for auto in recov.automobiles %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Automobile {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Description: </Strong> {{
+                                                    auto.description }}</p>
+                                                <p class="col-auto details"><Strong>Plate No: </Strong> {{
+                                                    auto.plate_number }}</p>
+                                                <p class="col-auto details"><Strong>Chasis No: </Strong> {{
+                                                    auto.chasis_number }}</p>
+                                                <p class="col-auto details"><Strong>Colar: </Strong> {{
+                                                    auto.colar }}</p>
+                                                <p class="col-auto details"><Strong>Other Info: </Strong> {{
+                                                    auto.other_info }}</p>
+                                                <p class="col-auto details"><Strong>Status: </Strong> {{
+                                                    auto.status }}</p>
+
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!-- Jewelry Recovery Card -->
+                            {% if recov.jewelries %}
+                            <div class="card col-4">
+                                <div class="card-header">
+                                    <strong>Jewelry</strong>
+                                </div>
+                                <div class="card-body row justify-content-between">
+                                    <div class="col-auto mb-2">
+                                        {% for jewel in recov.jewelries %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Jewelry {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Name: </Strong> {{
+                                                    jewel.name }}</p>
+                                                <p class="col-auto details"><Strong>Description: </Strong> {{
+                                                    jewel.description }}</p>
+                                                <p class="col-auto details"><Strong>Status: </Strong> {{
+                                                    jewel.status }}</p>
+
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!-- Landed Property Recovery Card -->
+                            {% if recov.landedproperties %}
+                            <div class="card col-4">
+                                <div class="card-header">
+                                    <strong>Landed Properties</strong>
+                                </div>
+                                <div class="card-body row justify-content-between">
+                                    <div class="col-auto mb-2">
+                                        {% for land in recov.landedproperties %}
+                                        <div class="card">
+                                            <div class="card-header"><strong>Land {{ loop.index }}</strong></div>
+                                            <div class="card-body row justify-content-between">
+                                                <p class="col-auto details"><Strong>Location: </Strong> {{
+                                                    land.location }}</p>
+                                                <p class="col-auto details"><Strong>Size: </Strong> {{
+                                                    land.size }}</p>
+                                                <p class="col-auto details"><Strong>Status: </Strong> {{
+                                                    land.status }}</p>
+
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
             {% endif %}
-
-            <!-- JEWELRIES RECOVERY -->
-            {% if recov.get('jewelries') %}
-            <div class="row text-start">
-                {% for jewel in recov.get('jewelries') %}
-                <div class="mb-3 col-sm-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Automobile {{ loop.index }}</strong>
-                        </div>
-                        <div class="card-body row justify-content-between">
-                            <p class="col-auto details"><Strong>ID: </Strong> {{ jewel.get('id') }}</p>
-                            <p class="col-auto details"><Strong>Name: </Strong> {{ jewel.get('name') }}</p>
-                            <p class="col-auto details"><Strong>Description: </Strong> {{ jewel.get('description') }}
-                            </p>
-                            <p class="col-auto details"><Strong>Status: </Strong> {{ jewel.get('status') }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <!-- LANDED PROPERTIES RECOVERIES -->
-            {% if recov.get('landedproperties') %}
-            <div class="row text-start">
-                {% for land in recov.get('landedproperties') %}
-                <div class="mb-3 col-sm-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Automobile {{ loop.index }}</strong>
-                        </div>
-                        <div class="card-body row justify-content-between">
-                            <p class="col-auto details"><Strong>ID: </Strong> {{ land.get('id') }}</p>
-                            <p class="col-auto details"><Strong>Location: </Strong> {{ land.get('location') }}</p>
-                            <p class="col-auto details"><Strong>Size: </Strong> {{ land.get('size') }}</p>
-                            <p class="col-auto details"><Strong>Status: </Strong> {{ land.get('status') }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
             {% endfor %}
         </div>
-
         {% else %}
         <h1>NO RECOVERED ITEMS REGISTERED YET!</h1>
         {% endif %}
-
     </div>
     <!-- STATUS PREVIEW SECTION -->
     <div id="statusPreview" class="row d-none">
