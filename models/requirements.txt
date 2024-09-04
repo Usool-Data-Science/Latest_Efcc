@@ -1,0 +1,8 @@
+api
+asposestorage
+Flask
+Flask_Admin
+Flask_Bcrypt
+Flask_Login
+Flask_SQLAlchemy
+python-dotenv

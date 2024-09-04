@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""A module that declares the blueprint of the staff object"""
 
 # Create the database models
 from models import db
@@ -7,10 +8,14 @@ from models.variables import nigeria_states
 from flask_login import UserMixin
 from models.petition import Petition
 
-# association_pet_staff = db.Table("petition_staff",
-#     db.Column("petition_id", db.ForeignKey("petitions.id"), primary_key=True, nullable=False),
-#     db.Column("staff_id", db.ForeignKey("staffs.id"), primary_key=True, nullable=False)
-# )
+"""
+    association_pet_staff = db.Table("petition_staff",
+    db.Column("petition_id", db.ForeignKey("petitions.id"),
+        primary_key=True, nullable=False),
+    db.Column("staff_id", db.ForeignKey("staffs.id"),
+        primary_key=True, nullable=False))
+"""
+
 
 class Staff(BaseModel, db.Model, UserMixin):
     """A Staff object that defines each Efcc staff features"""
@@ -25,10 +30,10 @@ class Staff(BaseModel, db.Model, UserMixin):
     gender = db.Column(db.Enum('Male', 'Female'), nullable=False)
     state = db.Column(db.Enum(*nigeria_states), nullable=False)
     admin = db.Column(db.Boolean, default=False)
-    
 
-    # Relationship
-    petitions = db.relationship("Petition", viewonly=False, back_populates="staff", cascade="all, delete-orphan")
+    petitions = db.relationship("Petition", viewonly=False,
+                                back_populates="staff",
+                                cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Staff(id={self.id}, email='{self.email}')>"

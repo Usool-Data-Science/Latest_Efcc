@@ -1,0 +1,10 @@
+email_validator
+Flask
+Flask_Admin
+Flask_Bcrypt
+Flask_Login
+Flask_SQLAlchemy
+flask_wtf
+pep8
+python-dotenv
+WTForms

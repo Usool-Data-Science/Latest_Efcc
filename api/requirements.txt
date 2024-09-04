@@ -1,0 +1,7 @@
+api
+asposestorage
+email_validator
+Flask
+Flask_Login
+flask_wtf
+WTForms
