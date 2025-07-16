@@ -1,164 +1,177 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 
 <!-- Crime Statistics -->
 <div class="row d-flex-column card--container mx-2">
-    <h3 class="main--title">Crime Statistics</h3>
-    <div class="row text-start">
-        <!-- Card 1 -->
-        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-scale-balanced icon"></i>
-                    <strong>Petition</strong>
-                </div>
-                <div class="card-body row">
-                    <p class="col-12 details"><Strong>Total: </Strong>{{ sum_petition }}</p>
-                </div>
-            </div>
+  <h3 class="main--title">Crime Statistics</h3>
+  <div class="row text-start">
+    <!-- Card 1 -->
+    <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-scale-balanced icon"></i>
+          <strong>Petition</strong>
         </div>
-        <!-- Card 2 -->
-        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-people-robbery icon"></i>
-                    <strong>Suspect</strong>
-                </div>
-                <div class="card-body row">
-                    <p class="col-12 details"><Strong>Total: </Strong>{{ sum_suspect }}</p>
-                </div>
-            </div>
+        <div class="card-body row">
+          <p class="col-12 details">
+            <strong>Total: </strong>{{ sum_petition }}
+          </p>
         </div>
-        <!-- Card 3 -->
-        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-gem icon"></i>
-                    <strong>Recovery</strong>
-                </div>
-                <div class="card-body row">
-                    <p class="col-6 details"><Strong>$: </Strong>{{ sum_dollar }}</p>
-                    <p class="col-6 details"><Strong>€: </Strong>{{ sum_euro}}</p>
-                    <p class="col-6 details"><Strong>£: </Strong>{{ sum_pound }}</p>
-                    <p class="col-6 details"><Strong>#: </Strong>{{ sum_naira }}</p>
-                </div>
-            </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-spinner icon"></i> <strong>Status</strong>
-                </div>
-                <div class="card-body row">
-                    <p class="col-6 details"><Strong>UI:</Strong> {{ sum_ui }} </p>
-                    <p class="col-6 details"><Strong>Legal:</Strong> {{ sum_legal }} </p>
-                    <p class="col-6 details"><Strong>Court:</Strong> {{ sum_court }} </p>
-                    <p class="col-6 details"><Strong>Convicted:</Strong> {{ sum_convicted }} </p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <!-- Card 2 -->
+    <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-people-robbery icon"></i>
+          <strong>Suspect</strong>
+        </div>
+        <div class="card-body row">
+          <p class="col-12 details">
+            <strong>Total: </strong>{{ sum_suspect }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-gem icon"></i>
+          <strong>Recovery</strong>
+        </div>
+        <div class="card-body row">
+          <p class="col-6 details"><strong>$: </strong>{{ sum_dollar }}</p>
+          <p class="col-6 details"><strong>€: </strong>{{ sum_euro}}</p>
+          <p class="col-6 details"><strong>£: </strong>{{ sum_pound }}</p>
+          <p class="col-6 details"><strong>#: </strong>{{ sum_naira }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="mb-3 col-sm-6 col-xl-3 no-wrap">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-spinner icon"></i> <strong>Status</strong>
+        </div>
+        <div class="card-body row">
+          <p class="col-6 details"><strong>UI:</strong> {{ sum_ui }}</p>
+          <p class="col-6 details"><strong>Legal:</strong> {{ sum_legal }}</p>
+          <p class="col-6 details"><strong>Court:</strong> {{ sum_court }}</p>
+          <p class="col-6 details">
+            <strong>Convicted:</strong> {{ sum_convicted }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Flash Message -->
 <div class="row mt-2 px-2">
-    <div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-    </div>
+  <div>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %} {% endif %} {% endwith %}
+  </div>
 </div>
 
 <!-- Crime Investigation Overview -->
 <div class="row mx-2">
-    <div class="tabular--wrapper">
-        <h3 class="main--title">Crime Investigation Overview</h3>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="row">&nbsp;</th>
-                        {% for k in dashboard_result_list[0].keys() %}
-                        {% if k != 'id' %}
-                        <th scope="col">{{ k }}</th>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for obj in dashboard_result_list %}
+  <div class="tabular--wrapper">
+    <h3 class="main--title">Crime Investigation Overview</h3>
+    {% if dashboard_result_list %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="row">&nbsp;</th>
+            {% for k in dashboard_result_list[0].keys() %} {% if k != 'id' %}
+            <th scope="col">{{ k }}</th>
+            {% endif %} {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in dashboard_result_list %}
 
-                    <tr data-petition-id="{{ obj['id'] }}">
-                        <th scope="row">{{ loop.index }}</th>
-                        {% for k, v in obj.items() %}
-                        {% if k != 'id' %}
-                        <td>{{ obj.get(k, '') }}</td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
+          <tr data-petition-id="{{ obj['id'] }}">
+            <th scope="row">{{ loop.index }}</th>
+            {% for k, v in obj.items() %} {% if k != 'id' %}
+            <td>{{ obj.get(k, '') }}</td>
+            {% endif %} {% endfor %}
+          </tr>
 
-                    {% endfor %}
-                </tbody>
-                <!-- <tfoot class="table-dark ps-3">
+          {% endfor %}
+        </tbody>
+        <!-- <tfoot class="table-dark ps-3">
                     <tr>
                         <td colspan="{{ dashboard_result_list[0]|length + 1 }}">Total Petitions: {{ sum_petition }}
                         </td>
                     </tr>
                 </tfoot> -->
-                <tfoot class="table-dark ps-3">
-                    <tr>
-                        <td colspan="{{  dashboard_result_list[0]|length-1}}">Total Petitions: {{ sum_petition }}
-                        </td>
-                        <td colspan="2"><button type="button" class="btn btn-dark" id="formSwitch"
-                                data-id="formContent"> New
-                                Petition</button></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+        <tfoot class="table-dark ps-3">
+          <tr>
+            <td colspan="{{  dashboard_result_list[0]|length-1}}">
+              Total Petitions: {{ sum_petition }}
+            </td>
+            <td colspan="2">
+              <button
+                type="button"
+                class="btn btn-dark"
+                id="formSwitch"
+                data-id="formContent"
+              >
+                New Petition
+              </button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
+    {% else %}
+    <div class="table-responsive">
+      <h3>Please confirm that you chose the right filter!</h3>
+      <p>
+        {{search_feature}} is not the right filter to search for
+        {{search_value}}
+      </p>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 <!-- Petition Registration Form -->
 <div class="row mx-2">
-    <div class="form--content hidden" id="formContent">
-        <form action="{{ url_for('app_views.dashboard') }}" method="POST">
-            {{ petForm.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4 form--title">Register Petition</legend>
+  <div class="form--content hidden" id="formContent">
+    <form action="{{ url_for('app_views.dashboard') }}" method="POST">
+      {{ petForm.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4 form--title">
+          Register Petition
+        </legend>
 
-                <!-- Form fields for Petition -->
-                {% for field in petForm %}
-                {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
-                <div class="form-group">
-                    {{ field.label(class="form-control-label") }}
-                    {% if field.errors %}
-                    {{ field(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in field.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ field(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                {% endif %}
-                {% endfor %}
+        <!-- Form fields for Petition -->
+        {% for field in petForm %} {% if field.name != 'csrf_token' and
+        field.type != 'SubmitField' %}
+        <div class="form-group">
+          {{ field.label(class="form-control-label") }} {% if field.errors %} {{
+          field(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in field.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ field(class="form-control form-control-lg") }} {% endif
+          %}
+        </div>
+        {% endif %} {% endfor %}
 
-                <div class="form-group">
-                    {{ petForm.submit(class="btn btn-outline-info") }}
-                    {{ petForm.reset(class="btn btn-outline-danger") }}
-                </div>
-            </fieldset>
-        </form>
-    </div>
+        <div class="form-group">
+          {{ petForm.submit(class="btn btn-outline-info") }} {{
+          petForm.reset(class="btn btn-outline-danger") }}
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
 {% endblock content %}

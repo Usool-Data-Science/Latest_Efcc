@@ -12,22 +12,23 @@ def wrap_petition(petitions):
         on the dashboard or what not.
     """
     response = []
-    for petition in petitions:
-        petition_dict = {}
+    if petitions:
+        for petition in petitions:
+            petition_dict = {}
 
-        petition_dict['id'] = petition.id
-        petition_dict['Case File #'] = petition.casefile_no
-        petition_dict['Credential #'] = petition.cr_no
-        petition_dict['Date Assigned'] = petition.date_assigned
+            petition_dict['id'] = petition.id
+            petition_dict['Case File #'] = petition.casefile_no
+            petition_dict['Credential #'] = petition.cr_no
+            petition_dict['Date Assigned'] = petition.date_assigned
 
-        complainant_names = [str(compt.name) for compt in petition.complainants]
-        petition_dict['Complainants'] = ", ".join(complainant_names)
+            complainant_names = [str(compt.name) for compt in petition.complainants]
+            petition_dict['Complainants'] = ", ".join(complainant_names)
 
-        petition_dict['Amount'] = petition.amount_involved
-        petition_dict['Source'] = petition.petition_source
-        petition_dict['Status'] = petition.status_signal
+            petition_dict['Amount'] = petition.amount_involved
+            petition_dict['Source'] = petition.petition_source
+            petition_dict['Status'] = petition.status_signal
 
-        response.append(petition_dict)
+            response.append(petition_dict)
 
     return response
 
@@ -166,10 +167,14 @@ def dashboard():
         elif searchForm.validate_on_submit():
             feature = searchForm.feature.data
             value = searchForm.value.data
-            this_petition = Petition.query.filter(getattr(Petition, feature) == value).all()
+            this_petition = [] 
+            if hasattr(Petition, feature):
+                this_petition = Petition.query.filter(getattr(Petition, feature) == value).all()
             response = wrap_petition(this_petition)
 
             return render_template("dashboard.html",
+                           search_feature=feature,
+                           search_value=value,
                            dashboard_result_list=response,
                            sum_petition=len(all_petitions),
                            sum_complainant=len(all_complainants),

@@ -1,4 +1,4 @@
-#!/home/usool/New-Freelance/EFCC_Webapp/efcc_env/bin/python
+#!/home/usool/Project/Latest_Efcc/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
