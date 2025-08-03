@@ -113,24 +113,24 @@ db.session.add_all([staff1, staff2])
 db.session.commit() 
 
 # Create and save 5 instances of Petition
-petition1 = Petition( casefile_no="CASE1", cr_no="CR1", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=1000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
+petition1 = Petition(cr_no="CR1", date_received=datetime.now(), date_assigned=datetime.now(),
+                     amount_involved=1000, status_signal='UI', staff=staff1, petition_source='Regular-Complain')
 
 
-petition2 = Petition(casefile_no="CASE2", cr_no="CR2", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=2000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
+petition2 = Petition(cr_no="CR2", date_received=datetime.now(), date_assigned=datetime.now(),
+                     amount_involved=2000, status_signal='UI', staff=staff1, petition_source='Regular-Complain')
 
 
-petition3 = Petition(casefile_no="CASE3", cr_no="CR3", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=3000, status_signal='UI', staff_id=staff1.id, petition_source='Regular-Complain')
+petition3 = Petition(cr_no="CR3", date_received=datetime.now(), date_assigned=datetime.now(),
+                     amount_involved=3000, status_signal='UI', staff=staff1, petition_source='Regular-Complain')
 
 
-petition4 = Petition(casefile_no="CASE4", cr_no="CR4", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=4000, status_signal='Legal', staff_id=staff2.id, petition_source='Regular-Complain')
+petition4 = Petition(cr_no="CR4", date_received=datetime.now(), date_assigned=datetime.now(),
+                     amount_involved=4000, status_signal='Legal', staff=staff2, petition_source='Regular-Complain')
 
 
-petition5 = Petition(casefile_no="CASE5", cr_no="CR5", date_received=datetime.now(), date_assigned=datetime.now(),
-                     amount_involved=5000, status_signal='Court', staff_id=staff2.id, petition_source='Regular-Complain')
+petition5 = Petition(cr_no="CR5", date_received=datetime.now(), date_assigned=datetime.now(),
+                     amount_involved=5000, status_signal='Court', staff=staff2, petition_source='Regular-Complain')
 db.session.add_all([petition1, petition2, petition3, petition4, petition5])
 db.session.commit() 
 

@@ -31,7 +31,7 @@ class ComplainantForm(FlaskForm):
 
 class PetitionForm(FlaskForm):
     "A blueprint for the Petition form that will be sent to frontend"
-    casefile_no = StringField('Case File No', validators=[DataRequired(), Length(max=50)])
+    # casefile_no = StringField('Case File No', validators=[DataRequired(), Length(max=50)])
     cr_no = StringField('CR No', validators=[DataRequired(), Length(max=50)])
     date_received = DateTimeField('Date Received', format='%Y-%m-%d %H:%M:%S', default=datetime.now(), validators=[DataRequired()])
     date_assigned = DateTimeField('Date Assigned', format='%Y-%m-%d %H:%M:%S', default=datetime.now(), validators=[DataRequired()])

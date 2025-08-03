@@ -18,13 +18,19 @@ from models.variables import petition_status
 #     db.Column("suspect_id", db.ForeignKey("suspects.id"), primary_key=True, nullable=False)
 # )
 
+from datetime import datetime
+import uuid
+
+def get_unique_casefile_no():
+    return f"case-{datetime.now().year}-{uuid.uuid4().hex[:6]}"
+
 class Petition(BaseModel, db.Model, UserMixin):
     """
         A blueprint for the petition model
     """
     __tablename__ = 'petitions'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    casefile_no = db.Column(db.String(50), nullable=False)
+    casefile_no = db.Column(db.String(50), default=get_unique_casefile_no)
     cr_no = db.Column(db.String(50), nullable=False)
     date_received = db.Column(db.DateTime, nullable=False, default=datetime.now)
     date_assigned = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -40,9 +46,11 @@ class Petition(BaseModel, db.Model, UserMixin):
     # suspects = db.relationship("Suspect", secondary="petition_suspect", viewonly=False, back_populates="petitions")
     # complainants = db.relationship("Complainant", secondary="petition_complainant", viewonly=False, back_populates="petitions")
     # staffs = db.relationship("Staff", secondary="petition_staff", viewonly=False, back_populates="petitions")
-
+    
     def __repr__(self):
-        return f"<Petition(id={self.id}, casefile_no='{self.casefile_no}', cr_no='{self.cr_no}')>"
+        return f"<Petition(id={self.id}, cr_no='{self.cr_no}')>"
 
     def __str__(self):
-        return f"Petition {self.casefile_no} ({self.cr_no})"
+        return f"Petition {self.id} ({self.cr_no})"
+
+
